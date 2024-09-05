@@ -1,4 +1,5 @@
 import logo from './logo.svg';
+import LoginPage from './components/LoginPage/LoginPage';
 
 function App() {
   return (
@@ -6,6 +7,7 @@ function App() {
       <header className="App-header">
         
       </header>
+      <LoginPage />
     </div>
   );
 }

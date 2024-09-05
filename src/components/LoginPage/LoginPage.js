@@ -1,9 +1,21 @@
-import React from 'react'
+import React, {useState} from 'react';
 
-function LoginPage() {
+const LoginPage = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
   return (
-    <div>LoginPage</div>
+    <form>
+      <input type="email" value={email} onChange={(e) => setEmail(e.target.value)}></input>
+      <input type="password" value={password} onChange={(e) => setPassword(e.target.value)}></input>
+      <button type="submit">Login</button>
+    </form>
   )
+  
 }
 
 export default LoginPage
