@@ -1,21 +1,38 @@
 import React, {useState} from 'react';
+import { Container, Header, Form, Input, Button } from './components/LoginPage/LoginPage.styles';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Handle login logic here
+    console.log('Email:', email);
+    console.log('Password:', password);
   };
 
   return (
-    <form>
-      <input type="email" value={email} onChange={(e) => setEmail(e.target.value)}></input>
-      <input type="password" value={password} onChange={(e) => setPassword(e.target.value)}></input>
-      <button type="submit">Login</button>
-    </form>
+    <Container>
+      <Header> ChatHub - Login</Header>
+      <Form onSubmit={handleSubmit}>
+        <Input type="email"
+        placeholder="Email" 
+        value={email} 
+        onChange={(e) => setEmail(e.target.value)} 
+        />
+
+        <Input type="password" 
+        placeholder="Senha" 
+        value={password} 
+        onChange={(e) => setPassword(e.target.value)} 
+        />
+
+        <Button type="submit">Login</Button>
+      </Form>
+    </Container>
   )
   
 }
 
-export default LoginPage
+export default LoginPage;
