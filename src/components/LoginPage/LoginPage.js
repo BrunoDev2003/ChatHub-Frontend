@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { Container, Header, Form, Input, Button } from './components/LoginPage/LoginPage.styles';
+import { Container, Header, Form, Input, Button } from './LoginPage.styles';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -31,8 +31,8 @@ const LoginPage = () => {
         <Button type="submit">Login</Button>
       </Form>
     </Container>
-  )
+  );
   
-}
+};
 
 export default LoginPage;
