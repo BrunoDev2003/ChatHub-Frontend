@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { Container, Header, Form, Input, Button } from './LoginPage.styles';
+import { Container, Header, Form, Input, Button, Footer } from './LoginPage.styles';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -30,6 +30,7 @@ const LoginPage = () => {
 
         <Button type="submit">Login</Button>
       </Form>
+      <Footer>© 2024 ChatHub - Bruno Mendonça Gusmão BrunoDev2003</Footer>
     </Container>
   );
   
