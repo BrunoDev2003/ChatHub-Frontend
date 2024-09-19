@@ -7,7 +7,7 @@ const LoginPage = () => {
   const [password, setPassword] = useState('');
 
   useEffect(() => {
-    axios.get('https://localhost:8080')
+    axios.get('http://localhost:8080/health')
       .then(response => {
         console.log('backend está rodando...', response.data)
       })
@@ -18,7 +18,7 @@ const LoginPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('https://localhost:8080', { username, password })
+    axios.post('http://localhost:8080/login', { username, password })
     .then(response => {
       console.log('Usuário logado com sucesso!', response.data)
     })
