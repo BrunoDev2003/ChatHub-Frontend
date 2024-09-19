@@ -1,14 +1,32 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
+import axios from 'axios';
 import { Container, Header, Form, Input, Button, Footer } from './LoginPage.styles';
 
 const LoginPage = () => {
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+
+  useEffect(() => {
+    axios.get('https://localhost:8080')
+      .then(response => {
+        console.log('backend está rodando...', response.data)
+      })
+      .catch(error => { 
+        console.error('Ocorreu um erro a conexão com o back...', error)
+      });
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    axios.post('https://localhost:8080', { username, password })
+    .then(response => {
+      console.log('Usuário logado com sucesso!', response.data)
+    })
+    .catch(error => {
+      console.error('Ocorreu um erro ao fazer login...', error)
+    });
     // Handle login logic here
-    console.log('Email:', email);
+    console.log('Username:', username);
     console.log('Password:', password);
   };
 
@@ -16,10 +34,10 @@ const LoginPage = () => {
     <Container>
       <Header> ChatHub - Login</Header>
       <Form onSubmit={handleSubmit}>
-        <Input type="email"
-        placeholder="Email" 
-        value={email} 
-        onChange={(e) => setEmail(e.target.value)} 
+        <Input type="text"
+        placeholder="Nome de usuário" 
+        value={username} 
+        onChange={(e) => setUsername(e.target.value)} 
         />
 
         <Input type="password" 
