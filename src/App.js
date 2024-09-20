@@ -1,14 +1,27 @@
-import logo from './logo.svg';
+import React from 'react';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import LoginPage from './components/LoginPage/LoginPage';
+import ChatApp from './components/ChatApp/ChatApp';
 
-function App() {
+const App = () => {
+    const [isAuthenticated, setIsAuthenticated] = React.useState(false);
+
+    const handleLogin = () => {
+        setIsAuthenticated(true);
+    };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        
-      </header>
-      <LoginPage />
-    </div>
+    <Router>
+    <Switch>
+        <Route path="/login">
+          <LoginPage onLogin={handleLogin} />
+        </Route>
+        <Route path="/chat">
+          {isAuthenticated ? <ChatApp /> : <Redirect to="/login" />}
+        </Route>
+        <Redirect from= "/" to="/login" />
+    </Switch>  
+    </Router>
   );
 }
 

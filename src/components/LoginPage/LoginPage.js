@@ -1,10 +1,12 @@
 import React, {useEffect, useState} from 'react';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { Container, Header, Form, Input, Button, Footer } from './LoginPage.styles';
 
-const LoginPage = () => {
+const LoginPage = ({ onLogin }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const history = useHistory();
 
   useEffect(() => {
     axios.get('http://localhost:8080/health')
@@ -20,7 +22,9 @@ const LoginPage = () => {
     e.preventDefault();
     axios.post('http://localhost:8080/login', { username, password })
     .then(response => {
-      console.log('Usuário logado com sucesso!', response.data)
+      console.log('Usuário logado com sucesso!', response.data);
+      onLogin();
+      history.push('/chat');
     })
     .catch(error => {
       console.error('Ocorreu um erro ao fazer login...', error)
