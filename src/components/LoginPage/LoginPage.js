@@ -6,7 +6,7 @@ import { Container, Header, Form, Input, Button, Footer } from './LoginPage.styl
 const LoginPage = ({ onLogin }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const history = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios.get('http://localhost:8080/health')
@@ -24,7 +24,7 @@ const LoginPage = ({ onLogin }) => {
     .then(response => {
       console.log('Usuário logado com sucesso!', response.data);
       onLogin();
-      history.push('/chat');
+      navigate('/chat');
     })
     .catch(error => {
       console.error('Ocorreu um erro ao fazer login...', error)
