@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import LoginPage from './components/LoginPage/LoginPage';
 import ChatApp from './components/ChatApp/ChatApp';
 
@@ -12,15 +12,11 @@ const App = () => {
 
   return (
     <Router>
-    <Switch>
-        <Route path="/login">
-          <LoginPage onLogin={handleLogin} />
-        </Route>
-        <Route path="/chat">
-          {isAuthenticated ? <ChatApp /> : <Redirect to="/login" />}
-        </Route>
-        <Redirect from= "/" to="/login" />
-    </Switch>  
+    <Routes>
+          <Route path="/login" element={<LoginPage onLogin={handleLogin} />} />
+          <Route path="/chat" element={isAuthenticated ? <ChatApp /> : <Navigate to="/login" />} />
+          <Route path="*" element={<Navigate to="/login" />} />
+            </Routes>
     </Router>
   );
 }

@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Container, Header, Form, Input, Button, Footer } from './LoginPage.styles';
 
 const LoginPage = ({ onLogin }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const history = useHistory();
+  const history = useNavigate();
 
   useEffect(() => {
     axios.get('http://localhost:8080/health')
