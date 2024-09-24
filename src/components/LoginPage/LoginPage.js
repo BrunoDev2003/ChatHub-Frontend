@@ -9,7 +9,7 @@ const LoginPage = ({ onLogin }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get('http://localhost:8080/health')
+    axios.get('http://localhost:8080/api/health')
       .then(response => {
         console.log('backend está rodando...', response.data)
       })
@@ -20,7 +20,7 @@ const LoginPage = ({ onLogin }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('http://localhost:8080/login', { username, password })
+    axios.post('http://localhost:8080/api/login', { username, password })
     .then(response => {
       console.log('Usuário logado com sucesso!', response.data);
       onLogin();
