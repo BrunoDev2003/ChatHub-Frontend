@@ -1,10 +1,14 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Container, Header } from './ChatApp.styles';
 
 
 const ChatApp = () => {
     return (
-        <div>ChatApp</div>
+        <Container>
+            <Header>Nome do usuario</Header>
+            <div>ChatApp</div>
+        </Container>
     )
 }
 
