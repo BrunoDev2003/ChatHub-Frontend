@@ -1,15 +1,16 @@
 import React from 'react';
+import { Container } from './ChatApp.styles';
 import { useNavigate } from 'react-router-dom';
-import { Container, Header } from './ChatApp.styles';
+import Header from '../Header/Header';
 
-
-const ChatApp = () => {
+const ChatApp = ({username}) => {
     return (
         <Container>
-            <Header>Nome do usuario</Header>
+            <Header userName={username}>
             <div>ChatApp</div>
+            </Header>
         </Container>
     )
 }
 
-export default ChatApp
+export default ChatApp;

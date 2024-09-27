@@ -4,6 +4,7 @@ import axios from 'axios';
 import { Container, Header, Form, Input, Button, Footer } from './LoginPage.styles';
 
 const LoginPage = ({ onLogin }) => {
+
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ const LoginPage = ({ onLogin }) => {
     axios.post('http://localhost:8080/api/login', { username, password })
     .then(response => {
       console.log('Usuário logado com sucesso!', response.data);
-      onLogin();
+      onLogin(username);
       navigate('/chat');
     })
     .catch(error => {
