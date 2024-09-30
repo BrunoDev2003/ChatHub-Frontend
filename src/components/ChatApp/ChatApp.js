@@ -7,8 +7,8 @@ const ChatApp = ({username}) => {
     return (
         <Container>
             <Header userName={username}>
-            <div>ChatApp</div>
             </Header>
+            <div>ChatApp</div>
         </Container>
     )
 }
