@@ -14,8 +14,9 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
 import { theme } from './Header.styles';
 import { Palette } from '@mui/icons-material';
+import ChatApp from '../ChatApp/ChatApp';
 
-const Header = ({userName}) => {
+const Header = ({userName}, {isUserOnline}) => {
     const navigate = useNavigate();
 
     const handleScrollToBottom = () => {
@@ -24,18 +25,18 @@ const Header = ({userName}) => {
     };
 
     return (
-        <AppBar position="static" style={{ theme }}>
+        <AppBar position="static" sx={{backgroundColor: theme.palette.primary.main}}>
             <Toolbar>
-                <Typography variant="h6" style={{ flexgrow: 1}}>
-                    {userName}
+                <Typography variant="h6" sx={{ flexgrow: 1}}>
+                    { userName }{ isUserOnline ? ' (Online)' : ' (Offline)'}
                 </Typography>
-                <Link href="mailto:brunogusmao43@gmail.com" color="inherit" style={{marginRight: 20}}>
+                <Link href="mailto:brunogusmao43@gmail.com" color="inherit" sx={{marginRight: 20, paddingLeft:2}}>
                     Contato
                 </Link>
-                <Link href="https://github.com/BrunoDev2003" color="inherit" style={{marginRight: 20}}>
+                <Link href="https://github.com/BrunoDev2003" color="inherit" sx={{marginRight: 20}}>
                     Github
                 </Link>
-                <Link href="https://brunodev-portfolio.herokuapp.com" color="inherit" style={{marginRight: 20}}>
+                <Link href="https://brunodev-portfolio.herokuapp.com" color="inherit" sx={{marginRight: 20}}>
                     Portfolio 
                 </Link>
                 <Button color="inherit" onClick={() => navigate('/login')}>
