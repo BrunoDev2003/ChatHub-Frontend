@@ -14,9 +14,8 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
 import { theme } from './Header.styles';
 import { Palette } from '@mui/icons-material';
-import ChatApp from '../ChatApp/ChatApp';
 
-const Header = ({userName}, {isUserOnline}) => {
+const Header = ({userName, isUserOnline}) => {
     const navigate = useNavigate();
 
     const handleScrollToBottom = () => {
@@ -27,8 +26,8 @@ const Header = ({userName}, {isUserOnline}) => {
     return (
         <AppBar position="static" sx={{backgroundColor: theme.palette.primary.main}}>
             <Toolbar>
-                <Typography variant="h6" sx={{ flexgrow: 1}}>
-                    { userName }{ isUserOnline ? ' (Online)' : ' (Offline)'}
+                <Typography variant="h6" sx={{ flexGrow: 1}}>
+                    { userName} {isUserOnline ? ' (Online)' : ' (Offline)'}
                 </Typography>
                 <Link href="mailto:brunogusmao43@gmail.com" color="inherit" sx={{marginRight: 20, paddingLeft:2}}>
                     Contato
