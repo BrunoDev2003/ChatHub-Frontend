@@ -24,7 +24,7 @@ const LoginPage = ({ onLogin }) => {
     axios.post('http://localhost:8080/api/login', { username, password })
     .then(response => {
       console.log('Usuário logado com sucesso!', response.data);
-      onLogin(username);
+      onLogin(response.data.id, username); // grava o userId e username logado
       navigate('/chat');
     })
     .catch(error => {
