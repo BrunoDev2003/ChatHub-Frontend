@@ -6,10 +6,12 @@ import Link from '@mui/material/Link';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
 import { theme } from './Header.styles';
+import { useUser } from '../../UserContext';
 import { Palette } from '@mui/icons-material';
 
-const Header = ({userName, isUserOnline}) => {
+const Header = ({isUserOnline}) => {
     const navigate = useNavigate();
+    const { user } = useUser();
 
     const handleScrollToBottom = () => {
         window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
@@ -20,7 +22,7 @@ const Header = ({userName, isUserOnline}) => {
         <AppBar position="static" sx={{backgroundColor: theme.palette.primary.main}}>
             <Toolbar>
                 <Typography variant="h6" sx={{ flexGrow: 1}}>
-                    { userName} {isUserOnline ? ' (Online)' : ' (Offline)'}
+                    { user.username } {isUserOnline ? ' (Online)' : ' (Offline)'}
                 </Typography>
                 <Link href="mailto:brunogusmao43@gmail.com" color="inherit" sx={{marginRight: 20, paddingLeft:2}}>
                     Contato

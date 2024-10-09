@@ -3,8 +3,10 @@ import { Container } from './ChatApp.styles';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Header from '../Header/Header';
+import { useUser } from '../../UserContext';
 
 const ChatApp = ({ username, userId }) => {
+    const { user } = useUser();
     const [isOnline, setIsOnline] = useState(true);
 
     useEffect(() => {
@@ -18,9 +20,9 @@ const ChatApp = ({ username, userId }) => {
                     console.log('Dados recebidos: ', response.data);
                     console.log('Status: ', status);
                     console.log('UserId: ', receivedUserId);
-                    console.log('User: ', username);  
+                    console.log('User: ', user.username);  
                     console.log('receivedUserId: ', receivedUserId);
-                    if(userId.toString() === receivedUserId) { //comparamos o UserId logado com o userId recebido de /status-updates
+                    if(user.id.toString() === receivedUserId) { //comparamos o UserId logado com o userId recebido de /status-updates
                         console.log('Updating online status:', status.trim() === 'online');
                         setIsOnline(status.trim() === 'online' );
                         console.log(status);
@@ -42,7 +44,7 @@ const ChatApp = ({ username, userId }) => {
     }, [isOnline]);
     return (
         <Container>
-            <Header userName={username} isUserOnline={isOnline}>
+            <Header userName={user.username} isUserOnline={isOnline}>
             </Header>
             <div>ChatApp</div>
         </Container>

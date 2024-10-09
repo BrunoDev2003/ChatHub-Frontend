@@ -2,12 +2,14 @@ import React, {useEffect, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Container, Header, Form, Input, Button, Footer } from './LoginPage.styles';
+import { useUser } from '../../UserContext';
 
 const LoginPage = ({ onLogin }) => {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const { setUser } = useUser();
 
   useEffect(() => {
     axios.get('http://localhost:8080/api/health')
@@ -24,7 +26,8 @@ const LoginPage = ({ onLogin }) => {
     axios.post('http://localhost:8080/api/login', { username, password })
     .then(response => {
       console.log('Usuário logado com sucesso!', response.data);
-      onLogin(response.data.id, username); // grava o userId e username logado
+      setUser({ username });// setar userContext
+      onLogin(username); // grava o userId e username logado
       navigate('/chat');
     })
     .catch(error => {

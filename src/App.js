@@ -1,25 +1,28 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import LoginPage from './components/LoginPage/LoginPage';
 import ChatApp from './components/ChatApp/ChatApp';
+import { UserProvider } from './UserContext';
 
 const App = () => {
     const [isAuthenticated, setIsAuthenticated] = React.useState(false);
-    const [username, setUsername] = useState('');
+    const { setUser } = setUser();
 
     const handleLogin = (username) => {
         setIsAuthenticated(true);
-        setUsername(username);
+        setUser(username);
     };
 
   return (
-    <Router>
-      <Routes>
-            <Route path="/login" element={<LoginPage onLogin={handleLogin} />} />
-            <Route path="/chat" element={isAuthenticated ? <ChatApp username={username} /> : <ChatApp username={username} Navigate to="/login" />} />
-            <Route path="*" element={<Navigate to="/login" />} />
-      </Routes>
-    </Router>
+    <UserProvider>
+      <Router>
+        <Routes>
+              <Route path="/login" element={<LoginPage onLogin={handleLogin} />} />
+              <Route path="/chat" element={isAuthenticated ? <ChatApp /> : <ChatApp Navigate to="/login" />} />
+              <Route path="*" element={<Navigate to="/login" />} />
+        </Routes>
+      </Router>
+    </UserProvider>
   );
 }
 
