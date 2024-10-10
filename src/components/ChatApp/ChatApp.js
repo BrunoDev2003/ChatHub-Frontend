@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Container } from './ChatApp.styles';
+import { Container, MainContent, ContentArea } from './ChatApp.styles';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Header from '../Header/Header';
 import { useUser } from '../../UserContext';
+import PermanentDrawer from '../PermanentDrawer/PermanentDrawer';
 
-const ChatApp = ({ username, userId }) => {
+const ChatApp = () => {
     const { user } = useUser();
     const [isOnline, setIsOnline] = useState(true);
 
@@ -22,7 +23,7 @@ const ChatApp = ({ username, userId }) => {
                     console.log('UserId: ', receivedUserId);
                     console.log('User: ', user.username);  
                     console.log('receivedUserId: ', receivedUserId);
-                    if(user.id.toString() === receivedUserId) { //comparamos o UserId logado com o userId recebido de /status-updates
+                    if(user.id && user.id.toString() === receivedUserId) { //comparamos o UserId logado com o userId recebido de /status-updates
                         console.log('Updating online status:', status.trim() === 'online');
                         setIsOnline(status.trim() === 'online' );
                         console.log(status);
@@ -37,7 +38,7 @@ const ChatApp = ({ username, userId }) => {
         };
 
         pollStatusUpdates(); // Iniciar o pooling;
-    }, [ userId, username]);
+    }, [ user.id]);
 
     useEffect(() => {
         console.log('isOnline status atualizado: ', isOnline);
@@ -46,7 +47,12 @@ const ChatApp = ({ username, userId }) => {
         <Container>
             <Header userName={user.username} isUserOnline={isOnline}>
             </Header>
-            <div>ChatApp</div>
+                <MainContent>
+                    <PermanentDrawer />
+                        <ContentArea>
+                            <div>ChatApp</div>
+                        </ContentArea>
+                </MainContent>
         </Container>
     );
 };

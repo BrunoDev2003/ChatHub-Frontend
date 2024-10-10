@@ -7,15 +7,19 @@ export const Container = styled.div`
     display:flex;
     flex-direction: column;
     height: 100vh;
-    justify-content: top;
+    justify-content: flex-start;
 
 `;
 
-export const Header = styled.h1`
-    background-color: #BC66DA;
-    border-radius: 8px;
-    color: #000;
-    overflow: hidden;
-    padding: 2rem 1rem;
-    text-align: top;
+export const MainContent = styled.div`
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    width: 100%;
+`;
+
+export const ContentArea = styled.div`
+    flex: 1;
+    padding: 16px;
+    background-color: #fff;
 `;

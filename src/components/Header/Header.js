@@ -19,7 +19,13 @@ const Header = ({isUserOnline}) => {
     };
 
     return (
-        <AppBar position="static" sx={{backgroundColor: theme.palette.primary.main}}>
+        <AppBar 
+            position="static" 
+            sx={{
+                borderBottom: '1px solid #000',
+                backgroundColor: theme.palette.primary.main
+            }}
+        >
             <Toolbar>
                 <Typography variant="h6" sx={{ flexGrow: 1}}>
                     { user.username } {isUserOnline ? ' (Online)' : ' (Offline)'}
