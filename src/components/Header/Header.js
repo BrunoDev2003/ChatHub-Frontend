@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
 import { theme } from './Header.styles';
 import { useUser } from '../../UserContext';
+import { Logout } from '@mui/icons-material';
+import  axios  from 'axios';
 import { Palette } from '@mui/icons-material';
 
 const Header = ({isUserOnline}) => {
@@ -16,6 +18,15 @@ const Header = ({isUserOnline}) => {
     const handleScrollToBottom = () => {
         window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
 
+    };
+
+    const handleLogout = async () => {
+        try {
+            await axios.post('http://localhost:8080/api/logout', {}, {withCredentials: true});
+            navigate('/login');
+        } catch (error) {
+            console.error('Erro ao fazer logout', error);
+        }
     };
 
     return (
@@ -30,6 +41,9 @@ const Header = ({isUserOnline}) => {
                 <Typography variant="h6" sx={{ flexGrow: 1}}>
                     { user.username } {isUserOnline ? ' (Online)' : ' (Offline)'}
                 </Typography>
+                <Button color="inherit" startIcon={<Logout />} onClick={handleLogout}>
+                    Logout
+                </Button>
                 <Link href="mailto:brunogusmao43@gmail.com" color="inherit" sx={{marginRight: 20, paddingLeft:2}}>
                     Contato
                 </Link>
