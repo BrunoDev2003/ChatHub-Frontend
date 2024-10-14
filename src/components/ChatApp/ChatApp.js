@@ -10,8 +10,21 @@ import PermanentDrawer from '../PermanentDrawer/PermanentDrawer';
 const ChatApp = () => {
     const { user } = useUser();
     const [isOnline, setIsOnline] = useState(true);
+    const { chatUsers, setChatUsers} = useState([]);
 
     useEffect(() => {
+
+        const fetchChatUsers = async () => {
+            try {
+                const response = await axiosInstance.get('http://localhost:8080/users');
+                setChatUsers(response.data);
+            } catch (error) {
+                console.error('Erro ao buscar usuários', error);
+
+            }
+        };
+
+        fetchChatUsers();
         const pollStatusUpdates = async () => {
             try{
                 const response = await axiosInstance.get('http://localhost:8080/users/status-updates');
@@ -49,7 +62,7 @@ const ChatApp = () => {
             <Header userName={user.username} isUserOnline={isOnline}>
             </Header>
                 <MainContent>
-                    <PermanentDrawer />
+                    <PermanentDrawer chatUsers={chatUsers} />
                         <ContentArea>
                             <div>ChatApp</div>
                         </ContentArea>

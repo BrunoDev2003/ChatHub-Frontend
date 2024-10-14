@@ -1,8 +1,8 @@
 import React from 'react';
-import { Drawer, List, ListItem, ListItemText } from '@mui/material';
+import { Drawer, List, ListItem, ListItemText, Button } from '@mui/material';
 import { theme } from '../Header/Header.styles';
 
-const PermanentDrawer = () => {
+const PermanentDrawer = ({chatUsers}) => {
     return(
         <Drawer
         variant="permanent"
@@ -23,16 +23,31 @@ const PermanentDrawer = () => {
             }}
         >
             <List>
+                {chatUsers.map((user) => (
+                    <ListItem button key={user.id}>
+                        <ListItemText primary={user.username} />
+                    </ListItem>
+                ))}
                 <ListItem button={true}>
                     <ListItemText primary="Chats" />
                 </ListItem>
                 <ListItem button={true}>
                     <ListItemText primary="Contatos" />
                 </ListItem>
-                <ListItem button={true}>
-                    <ListItemText primary="Criar grupos" />
-                </ListItem>
             </List>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    sx={{
+                        position: 'absolute',
+                        bottom: 10,
+                        left: '50%',
+                        transform: 'translateX(-50%)',
+                    }}
+                    onClick={() => console.log('Create group chat...')}
+                >
+                    Criar grupo
+                </Button>
         </Drawer>
     );
 };
