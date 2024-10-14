@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Container, MainContent, ContentArea } from './ChatApp.styles';
 import { useNavigate } from 'react-router-dom';
+import axiosInstance from '../../axiosInstance';
 import axios from 'axios';
 import Header from '../Header/Header';
 import { useUser } from '../../UserContext';
@@ -13,7 +14,7 @@ const ChatApp = () => {
     useEffect(() => {
         const pollStatusUpdates = async () => {
             try{
-                const response = await axios.get('http://localhost:8080/users/status-updates');
+                const response = await axiosInstance.get('http://localhost:8080/users/status-updates');
                 if (response.status === 204) {
                     console.log('No update status available');
                 } else if(response.data) {

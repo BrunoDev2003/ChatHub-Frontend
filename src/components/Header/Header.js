@@ -8,6 +8,7 @@ import { Button } from '@mui/material';
 import { theme } from './Header.styles';
 import { useUser } from '../../UserContext';
 import { Logout } from '@mui/icons-material';
+import axiosInstance from '../../axiosInstance';
 import  axios  from 'axios';
 import { Palette } from '@mui/icons-material';
 
@@ -22,7 +23,7 @@ const Header = ({isUserOnline}) => {
 
     const handleLogout = async () => {
         try {
-            await axios.post('http://localhost:8080/api/logout', {}, {withCredentials: true});
+            await axiosInstance.post('http://localhost:8080/api/logout');
             navigate('/login');
         } catch (error) {
             console.error('Erro ao fazer logout', error);

@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
+import axiosInstance from '../../axiosInstance';
 import axios from 'axios';
 import { Container, Header, Form, Input, Button, Footer } from './LoginPage.styles';
 import { useUser } from '../../UserContext';
@@ -12,7 +13,7 @@ const LoginPage = ({ onLogin }) => {
   const { setUser } = useUser();
 
   useEffect(() => {
-    axios.get('http://localhost:8080/api/health')
+    axiosInstance.get('http://localhost:8080/api/health')
       .then(response => {
         console.log('backend está rodando...', response.data)
       })
@@ -23,7 +24,7 @@ const LoginPage = ({ onLogin }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('http://localhost:8080/api/login', { username, password })
+    axiosInstance.post('http://localhost:8080/api/login', { username, password })
     .then(response => {
       console.log('Usuário logado com sucesso!', response.data);
       setUser({ username });// setar userContext
