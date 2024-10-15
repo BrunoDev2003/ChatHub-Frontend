@@ -23,11 +23,17 @@ const PermanentDrawer = ({chatUsers}) => {
             }}
         >
             <List>
-                {chatUsers.map((user) => (
-                    <ListItem button key={user.id}>
-                        <ListItemText primary={user.username} />
+                {chatUsers && chatUsers.length > 0 ? (
+                    chatUsers.map(user => (
+                        <ListItem button key={user.id}>
+                            <ListItemText primary={user.username} />
+                        </ListItem>
+                    ))
+                ) : (
+                    <ListItem>
+                        <ListItemText primary={"Usuarios indísponiveis"}></ListItemText>
                     </ListItem>
-                ))}
+                )} 
                 <ListItem button={true}>
                     <ListItemText primary="Chats" />
                 </ListItem>

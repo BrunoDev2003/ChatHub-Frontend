@@ -16,7 +16,7 @@ const ChatApp = () => {
 
         const fetchChatUsers = async () => {
             try {
-                const response = await axiosInstance.get('http://localhost:8080/users');
+                const response = await axiosInstance.get('http://localhost:8080/users/all');
                 setChatUsers(response.data);
             } catch (error) {
                 console.error('Erro ao buscar usuários', error);
