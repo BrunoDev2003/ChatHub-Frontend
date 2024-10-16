@@ -11,6 +11,11 @@ const ChatApp = () => {
     const { user } = useUser();
     const [isOnline, setIsOnline] = useState(true);
     const { chatUsers, setChatUsers} = useState([]);
+    const { messages, setMessages } = useState([]);
+
+    const handleSendMessage = (message) => {
+        setMessages([...messages, message]);
+    }
 
     useEffect(() => {
 
