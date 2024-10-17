@@ -1,12 +1,12 @@
 import React, {useState} from 'react'
 
 const MessageInput = ( onSendMessage) => { 
-    const {message, setMessage} = useState('');
+    const {message, setMessages} = useState('');
 
     const handleSendMessage = () => {
-        if(message.trim() === '') {
+        if(message.trim() !== '') {
             onSendMessage(message);
-            setMessage('');
+            setMessages(''); // Limpa o input;
         }
     };
     return (
@@ -14,7 +14,8 @@ const MessageInput = ( onSendMessage) => {
             <input
                 type="text"
                 value={message}
-                onChange={(e) => setMessage(e.target.value)}
+                placeholder="Enviar mensagem"
+                onChange={(e) => setMessages(e.target.value)}
             />
             <button onClick={handleSendMessage}>Enviar</button>
         </div>
