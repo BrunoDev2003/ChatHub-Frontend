@@ -9,6 +9,10 @@ import MessageInput from '../MessageInput/MessageInput';
 import MessageList from '../MessageList/MessageList';
 import PermanentDrawer from '../PermanentDrawer/PermanentDrawer';
 
+//current GET error on /chat/emit: GRAVE: Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: com.google.gson.JsonSyntaxException: java.lang.NumberFormatException: Expected an int but was 1729214070107 at line 1 column 70 path $.date] with root cause
+//java.lang.NumberFormatException: Expected an int but was 1729214070107 at line 1 column 70 path $.date
+
+
 const ChatApp = () => {
     const { user } = useUser();
     const [isOnline, setIsOnline] = useState(true);
@@ -17,18 +21,70 @@ const ChatApp = () => {
     const [error, setError] = useState(null);
 
     const handleSendMessage = async (message) => {
-        const newMessage = { user: user.username, content: message, timestamp: new Date() };
-        setMessages([...messages, newMessage]);
-        
-        try {
-            await axiosInstance.post('http://localhost:8080/messages', newMessage);
-        } catch (error) {
-            console.error('Erro ao enviar mensagem', error);
+        console.log('Usuario:', user);
+        if (!user.id) {
+            console.error('User ID is undefined');
+            return;
         }
-            
-    }
-    useEffect(() => {
+        const newMessage = {
+        user: { id: user.id, username: user.username, isOnline: user.isOnline},
+        type: 'message',
+        data: JSON.stringify({ from: user.username, text: message, roomId: "someRoomId", date: new Date().getTime() }),
+    };
+    try {
+            await axiosInstance.post('http://localhost:8080/chat/emit', newMessage, {
+                headers: {
+                    'Content-Type': 'application/json'},
+            });
+            setMessages([...messages, newMessage]);
+        } catch (error) {
+            console.log('Erro ao enviar mensagem', error);
+        }        
+    };
 
+    useEffect(() => {
+        const handleUserConnected = async () => {
+            const connectMessage = {
+                user: { id: user.id, username: user.username, isOnline: user.isOnline},
+                type: 'user_connected',
+                data: JSON.stringify({ username: user.username, isOnline: user.isOnline}),
+            };
+            try {
+                await axiosInstance.post('http://localhost:8080/chat/emit', connectMessage, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+            } catch (error) {
+                console.log('Erro ao enviar mensagem de conexão', error);
+            };
+        };
+        const handleUserDisconnected = async () => {
+            const disconnectMessage = {
+                user: { id: user.id, username: user.username, isOnline: user.isOnline},
+                type: 'user_disconnected',
+                data: JSON.stringify({ username: user.username, isOnline: user.isOnline}),
+            };
+            try {
+                await axiosInstance.post('http://localhost:8080/chat/emit', disconnectMessage, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+            } catch (error) {
+                console.log('Erro ao enviar mensagem de desconexão', error);
+            };
+        };
+
+        handleUserConnected();
+
+        return () => {
+            handleUserDisconnected();
+        };
+
+    }, [user.id]);
+
+    useEffect(() => {
         const fetchChatUsers = async () => {
             try {
                 const response = await axiosInstance.get('http://localhost:8080/users/all');
@@ -73,7 +129,7 @@ const ChatApp = () => {
     useEffect(() => {
         const fetchUserMessages = async () => {
             try {
-                const response = await axiosInstance.get('http://localhost:8080/messages');
+                const response = await axiosInstance.get('http://localhost:8080/chat/emit');
                 setMessages(response.data);
             } catch (error) {
                 console.error('Erro ao buscar mensagens', error);
@@ -83,6 +139,26 @@ const ChatApp = () => {
 
         fetchUserMessages();
     }, []); // array de dependencia vazio para esse side effect rodar apenas uma vez após o mount;
+
+
+    useEffect(() => {
+        if (!user.id) return;
+        const eventSource = new EventSource(`http://localhost:8080/chat/stream?userId=${user.id}`);
+
+        eventSource.onmessage = (event) => {
+            const newMessage = JSON.parse(event.data);
+            setMessages((prevMessages) => [...prevMessages, newMessage]);
+        };
+
+        eventSource.onerror = (error) => {
+            console.error('EventSource failed:', error);
+            eventSource.close();
+        };
+
+        return () => {
+            eventSource.close();
+        }
+    }, [user.id]);
 
     useEffect(() => {
         console.log('isOnline status atualizado: ', isOnline);

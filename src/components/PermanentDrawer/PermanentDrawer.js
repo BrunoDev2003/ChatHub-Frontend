@@ -26,7 +26,10 @@ const PermanentDrawer = ({chatUsers}) => {
                 {chatUsers && chatUsers.length > 0 ? (
                     chatUsers.map(user => (
                         <ListItem button key={user.id}>
-                            <ListItemText primary={user.username} />
+                            <ListItemText 
+                            primary={user.username} 
+                            secondary={user.lastMessage ? user.lastMessage.content : 'Sem mensagens'}
+                            />
                         </ListItem>
                     ))
                 ) : (

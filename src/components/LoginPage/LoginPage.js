@@ -26,15 +26,15 @@ const LoginPage = ({ onLogin }) => {
     e.preventDefault();
     axiosInstance.post('http://localhost:8080/api/login', { username, password })
     .then(response => {
-      console.log('Usuário logado com sucesso!', response.data);
-      setUser({ username });// setar userContext
-      onLogin(username); // grava o userId e username logado
+      const loggedUser = response.data;
+      console.log('Usuário logado com sucesso!', loggedUser);
+      setUser({ id: loggedUser.id, username: loggedUser.username, isOnline: true});// setar userContext
+      onLogin(loggedUser); // grava o userId e username logado
       navigate('/chat');
     })
     .catch(error => {
       console.error('Ocorreu um erro ao fazer login...', error)
     });
-    // Handle login logic here
     console.log('Username:', username);
     console.log('Password:', password);
   };

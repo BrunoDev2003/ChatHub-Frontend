@@ -8,9 +8,9 @@ const App = () => {
     const [isAuthenticated, setIsAuthenticated] = React.useState(false);
     const { setUser } = useUser();
 
-    const handleLogin = (username) => {
+    const handleLogin = (loggedUser) => {
         setIsAuthenticated(true);
-        setUser({username});
+        setUser(loggedUser);
     };
 
   return (
