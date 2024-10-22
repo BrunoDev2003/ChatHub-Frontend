@@ -14,10 +14,18 @@ import PermanentDrawer from '../PermanentDrawer/PermanentDrawer';
 
 
 const ChatApp = () => {
+
+    /**
+     * @typedef {Object} Message
+     * @property {string} from
+     * @property {number} date
+     * @property {string} text
+     * @property {string} roomId
+     */
     const { user } = useUser();
     const [isOnline, setIsOnline] = useState(true);
     const [ chatUsers, setChatUsers] = useState([]);
-    const [ messages, setMessages ] = useState([]);
+    const [ messages, setMessages ] = useState(/**  @type {Message[]} */([]));
     const [error, setError] = useState(null);
 
     const handleSendMessage = async (message) => {
@@ -29,7 +37,7 @@ const ChatApp = () => {
         const newMessage = {
         user: { id: user.id, username: user.username, isOnline: user.isOnline},
         type: 'message',
-        data: JSON.stringify({ from: user.username, text: message, roomId: "someRoomId", date: new Date().getTime() }),
+        data: JSON.stringify({ from: user.username, text: message, roomId, date: new Date().getTime() }),
     };
     try {
             await axiosInstance.post('http://localhost:8080/chat/emit', newMessage, {
@@ -130,7 +138,7 @@ const ChatApp = () => {
         const fetchUserMessages = async () => {
             try {
                 const response = await axiosInstance.get('http://localhost:8080/chat/emit');
-                setMessages(response.data);
+                setMessages(prevMessages => prevMessages.concat(response.data));
             } catch (error) {
                 console.error('Erro ao buscar mensagens', error);
 
