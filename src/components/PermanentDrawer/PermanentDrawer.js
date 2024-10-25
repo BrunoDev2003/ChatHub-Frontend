@@ -1,8 +1,9 @@
 import React from 'react';
 import { Drawer, List, ListItem, ListItemText, Button } from '@mui/material';
+import PropTypes from 'prop-types';
 import { theme } from '../Header/Header.styles';
 
-const PermanentDrawer = ({chatUsers}) => {
+const PermanentDrawer = ({chatUsers, onRoomChange}) => {
     return(
         <Drawer
         variant="permanent"
@@ -25,7 +26,7 @@ const PermanentDrawer = ({chatUsers}) => {
             <List>
                 {chatUsers && chatUsers.length > 0 ? (
                     chatUsers.map(user => (
-                        <ListItem button key={user.id}>
+                        <ListItem button key={user.id} onClick={() => onRoomChange(user.id)}>
                             <ListItemText 
                             primary={user.username} 
                             secondary={user.lastMessage ? user.lastMessage.content : 'Sem mensagens'}
@@ -59,6 +60,16 @@ const PermanentDrawer = ({chatUsers}) => {
                 </Button>
         </Drawer>
     );
+};
+
+PermanentDrawer.propTypes = {
+    chatUsers: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        username: PropTypes.string.isRequired,
+        lastMessage: PropTypes.shape({
+            content: PropTypes.string
+        })
+    })).isRequired,
 };
 
 export default PermanentDrawer;

@@ -8,6 +8,7 @@ import { useUser } from '../../UserContext';
 import MessageInput from '../MessageInput/MessageInput';
 import MessageList from '../MessageList/MessageList';
 import PermanentDrawer from '../PermanentDrawer/PermanentDrawer';
+import ChatRoomList from '../ChatRoomList/ChatRoomList';
 
 //current GET error on /chat/emit: GRAVE: Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: com.google.gson.JsonSyntaxException: java.lang.NumberFormatException: Expected an int but was 1729214070107 at line 1 column 70 path $.date] with root cause
 //java.lang.NumberFormatException: Expected an int but was 1729214070107 at line 1 column 70 path $.date
@@ -15,18 +16,32 @@ import PermanentDrawer from '../PermanentDrawer/PermanentDrawer';
 
 const ChatApp = () => {
 
-    /**
-     * @typedef {Object} Message
-     * @property {string} from
-     * @property {number} date
-     * @property {string} text
-     * @property {string} roomId
+        /**
+         * @typedef {Object} Message
+         * @property {string} from
+         * @property {number} date
+         * @property {string} text
+         * @property {string} roomId
+         */
+
+        /**
+     * @typedef {Object} User
+     * @property {number} id
+     * @property {string} username
+     * @property {boolean} isOnline
+     * @property {Object} [lastMessage]
      */
     const { user } = useUser();
     const [isOnline, setIsOnline] = useState(true);
-    const [ chatUsers, setChatUsers] = useState([]);
+    const [ chatUsers, setChatUsers] = useState(/** @type {User[]}  */([]));
     const [ messages, setMessages ] = useState(/**  @type {Message[]} */([]));
     const [error, setError] = useState(null);
+    const [currentRoomId, setCurrentRoomId] = useState("initialRoomId");
+
+    const handleRoomChange = (roomId) => {
+        setCurrentRoomId(roomId);
+    };
+    
 
     const handleSendMessage = async (message) => {
         console.log('Usuario:', user);
@@ -35,16 +50,27 @@ const ChatApp = () => {
             return;
         }
         const newMessage = {
-        user: { id: user.id, username: user.username, isOnline: user.isOnline},
+            '@class': 'com.chathub.chathub.model.ChatRoomMessage',
+        user: { 
+            '@class': 'com.chathub.chathub.model.User',
+            id: user.id,
+            username: user.username,
+            isOnline: user.isOnline
+        },
         type: 'message',
-        data: JSON.stringify({ from: user.username, text: message, roomId, date: new Date().getTime() }),
+        data: JSON.stringify({ 
+            from: user.username, 
+            text: message, 
+            roomId: currentRoomId, 
+            date: new Date().getTime()
+        }),
     };
     try {
             await axiosInstance.post('http://localhost:8080/chat/emit', newMessage, {
                 headers: {
                     'Content-Type': 'application/json'},
             });
-            setMessages([...messages, newMessage]);
+            setMessages((prevMessages) => [...prevMessages, newMessage]);
         } catch (error) {
             console.log('Erro ao enviar mensagem', error);
         }        
@@ -53,9 +79,18 @@ const ChatApp = () => {
     useEffect(() => {
         const handleUserConnected = async () => {
             const connectMessage = {
-                user: { id: user.id, username: user.username, isOnline: user.isOnline},
+                '@class': 'com.chathub.chathub.model.ChatRoomMessage',
+                user: { 
+                    '@class': 'com.chathub.chathub.model.User',
+                    id: user.id, 
+                    username: user.username, 
+                    isOnline: true
+                },
                 type: 'user_connected',
-                data: JSON.stringify({ username: user.username, isOnline: user.isOnline}),
+                data: JSON.stringify({ 
+                    username: user.username, 
+                    isOnline: true
+                }),
             };
             try {
                 await axiosInstance.post('http://localhost:8080/chat/emit', connectMessage, {
@@ -69,9 +104,18 @@ const ChatApp = () => {
         };
         const handleUserDisconnected = async () => {
             const disconnectMessage = {
-                user: { id: user.id, username: user.username, isOnline: user.isOnline},
+                '@class' : 'com.chathub.chathub.model.ChatRoomMessage',
+                user: {
+                    '@class': 'com.chathub.chathub.model.User',
+                    id: user.id, 
+                    username: user.username, 
+                    isOnline: false
+                },
                 type: 'user_disconnected',
-                data: JSON.stringify({ username: user.username, isOnline: user.isOnline}),
+                data: JSON.stringify({ 
+                    username: user.username, 
+                    isOnline: false
+                }),
             };
             try {
                 await axiosInstance.post('http://localhost:8080/chat/emit', disconnectMessage, {
@@ -85,9 +129,11 @@ const ChatApp = () => {
         };
 
         handleUserConnected();
+        window.addEventListener('beforeunload', handleUserDisconnected);
 
         return () => {
-            handleUserDisconnected();
+            window.removeEventListener('beforeunload', handleUserDisconnected);
+            handleUserDisconnected(); // Garantindo que a conexão seja fechada ao desmontar(unmount) o componente;
         };
 
     }, [user.id]);
@@ -154,8 +200,18 @@ const ChatApp = () => {
         const eventSource = new EventSource(`http://localhost:8080/chat/stream?userId=${user.id}`);
 
         eventSource.onmessage = (event) => {
-            const newMessage = JSON.parse(event.data);
-            setMessages((prevMessages) => [...prevMessages, newMessage]);
+            try {
+                const parsedMessage = JSON.parse(event.data);
+                //const finalDataJSON = JSON.parse(parsedMessage.data);
+                let finalDataJSON;
+                const newMessage = {
+                    ...parsedMessage,
+                    data: finalDataJSON,
+                };
+                setMessages((prevMessages) => [...prevMessages, newMessage]);
+            } catch (error) {
+                console.error('Erro ao fazer parse da mensagem', event.data);
+            }
         };
 
         eventSource.onerror = (error) => {
@@ -177,7 +233,7 @@ const ChatApp = () => {
             </Header>
             {error && <div>{error}</div>}
                 <MainContent>
-                    <PermanentDrawer chatUsers={chatUsers} />
+                    <PermanentDrawer chatUsers={chatUsers} onRoomChange={handleRoomChange} />
                         <ContentArea>
                             <div>ChatApp</div>
                             <MessageList messages={messages} />
