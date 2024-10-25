@@ -37,7 +37,17 @@ const ChatApp = () => {
     const [ messages, setMessages ] = useState(/**  @type {Message[]} */([]));
     const [error, setError] = useState(null);
     const [currentRoomId, setCurrentRoomId] = useState("initialRoomId");
+    
+    const userMessagesFilter = ( {desiredUserId, messages}) => {
+        return messages.filter(message => message.user.id === desiredUserId);
+    };
 
+    const userMessagesRoomFilter = (messages, userId1, userId2) => {
+        return messages.filter(message => 
+            (message.user.id === userId1 || message.user.id === userId2) || 
+            (message.fromId === userId1 || message.fromId === userId2)
+        );
+    };
     const handleRoomChange = (roomId) => {
         setCurrentRoomId(roomId);
     };
@@ -233,10 +243,14 @@ const ChatApp = () => {
             </Header>
             {error && <div>{error}</div>}
                 <MainContent>
-                    <PermanentDrawer chatUsers={chatUsers} onRoomChange={handleRoomChange} />
+                    <PermanentDrawer chatUsers={chatUsers} onRoomChange={handleRoomChange} onFilterMessage={userMessagesFilter} messages={messages} />
                         <ContentArea>
                             <div>ChatApp</div>
-                            <MessageList messages={messages} />
+                            <MessageList 
+                            messages={messages} 
+                            currentUserId={user.id}
+                            otherUserId={currentRoomId}
+                            onFilterMessageRooms={userMessagesRoomFilter} />
                             <MessageInput onSendMessage={handleSendMessage} />
                         </ContentArea>
                 </MainContent>

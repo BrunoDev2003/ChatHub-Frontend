@@ -3,7 +3,7 @@ import { Drawer, List, ListItem, ListItemText, Button } from '@mui/material';
 import PropTypes from 'prop-types';
 import { theme } from '../Header/Header.styles';
 
-const PermanentDrawer = ({chatUsers, onRoomChange}) => {
+const PermanentDrawer = ({chatUsers, onRoomChange, onFilterMessage, messages}) => {
     return(
         <Drawer
         variant="permanent"
@@ -25,23 +25,47 @@ const PermanentDrawer = ({chatUsers, onRoomChange}) => {
         >
             <List>
                 {chatUsers && chatUsers.length > 0 ? (
-                    chatUsers.map(user => (
-                        <ListItem button key={user.id} onClick={() => onRoomChange(user.id)}>
-                            <ListItemText 
+                    chatUsers.map(user => {
+                        const userMessages = onFilterMessage({desiredUserId: user.id, messages});
+                        const lastMessage = userMessages
+                        .filter(message => message.roomId === user.id)
+                        .sort((a, b) => b.date - a.date)[0];
+                        return (
+                        <ListItem 
+                        button key={user.id}
+                        onClick={() => onRoomChange(user.id)} 
+                        sx={({
+                            '&:hover': {
+                                cursor: 'pointer',
+                                backgroundColor: theme.palette.primary.light,
+                            },
+                        })}>
+                            <ListItemText
                             primary={user.username} 
-                            secondary={user.lastMessage ? user.lastMessage.content : 'Sem mensagens'}
+                            secondary={lastMessage ? lastMessage.content : 'Sem mensagens'}
                             />
                         </ListItem>
-                    ))
+                        );
+                    })
                 ) : (
                     <ListItem>
                         <ListItemText primary={"Usuarios indísponiveis"}></ListItemText>
                     </ListItem>
                 )} 
-                <ListItem button={true}>
+                <ListItem button={true} sx={({
+                    '&:hover': {
+                        cursor: 'pointer',
+                        backgroundColor: theme.palette.primary.light,
+                    },
+                })}>
                     <ListItemText primary="Chats" />
                 </ListItem>
-                <ListItem button={true}>
+                <ListItem button={true} sx={({
+                    '&:hover': {
+                        cursor: 'pointer',
+                        backgroundColor: theme.palette.primary.light,
+                    },
+                })}>
                     <ListItemText primary="Contatos" />
                 </ListItem>
             </List>
