@@ -39,13 +39,13 @@ const ChatApp = () => {
     const [currentRoomId, setCurrentRoomId] = useState("initialRoomId");
     
     const userMessagesFilter = ( {desiredUserId, messages}) => {
-        return messages.filter(message => message.user.id === desiredUserId);
+        const userMessages = messages.filter(message => (message.user && (message.user.id === desiredUserId)));
+        return userMessages.sort((message1, message2) => message1.date - message2.date)[0]; //pegar a ultima mensagen enviada usando a data como ponto de ordenação das mensagens;
     };
 
     const userMessagesRoomFilter = (messages, userId1, userId2) => {
         return messages.filter(message => 
-            (message.user.id === userId1 || message.user.id === userId2) || 
-            (message.fromId === userId1 || message.fromId === userId2)
+            (message.user && (message.user.id === userId1 || message.user.id === userId2))
         );
     };
     const handleRoomChange = (roomId) => {
@@ -250,7 +250,7 @@ const ChatApp = () => {
                             messages={messages} 
                             currentUserId={user.id}
                             otherUserId={currentRoomId}
-                            onFilterMessageRooms={userMessagesRoomFilter} />
+                            userMessagesRoomFilter={userMessagesRoomFilter} />
                             <MessageInput onSendMessage={handleSendMessage} />
                         </ContentArea>
                 </MainContent>

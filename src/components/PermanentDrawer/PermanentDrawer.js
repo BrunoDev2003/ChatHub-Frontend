@@ -26,10 +26,7 @@ const PermanentDrawer = ({chatUsers, onRoomChange, onFilterMessage, messages}) =
             <List>
                 {chatUsers && chatUsers.length > 0 ? (
                     chatUsers.map(user => {
-                        const userMessages = onFilterMessage({desiredUserId: user.id, messages});
-                        const lastMessage = userMessages
-                        .filter(message => message.roomId === user.id)
-                        .sort((a, b) => b.date - a.date)[0];
+                        const lastMessage = onFilterMessage({desiredUserId: user.id, messages});
                         return (
                         <ListItem 
                         button key={user.id}
@@ -42,7 +39,7 @@ const PermanentDrawer = ({chatUsers, onRoomChange, onFilterMessage, messages}) =
                         })}>
                             <ListItemText
                             primary={user.username} 
-                            secondary={lastMessage ? lastMessage.content : 'Sem mensagens'}
+                            secondary={lastMessage ? lastMessage.text : 'Sem mensagens'}
                             />
                         </ListItem>
                         );
