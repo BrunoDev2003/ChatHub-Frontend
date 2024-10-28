@@ -18,12 +18,22 @@ const MessageList = ({ messages, currentUserId, otherUserId, userMessagesRoomFil
 
     return (
         <div className="message-list">
-            {filteredMessages.map((message, index) => (
-                <div key={index} className="message">
-                    <strong>{message.from}</strong>: {message.text}
-                    <span>{new Date(message.date).toLocaleTimeString()}</span>
-                </div>
-            ))}
+            {filteredMessages.map((message, index) => {
+                console.log("Full Message Object:", message); // Log the full message object
+                console.log("Message date:", message.date); // Log the date
+                console.log("Parsed Date:", new Date(message.date)); // Log parsed date
+
+                const parsedData = JSON.parse(message.data);
+                const date = new Date(parsedData.date).toLocaleTimeString();
+                console.log("Full Message Object:", message); // Log the full message object
+                console.log("Parsed Date:", date); // Log parsed date
+                return (
+                    <div key={index} className="message">
+                        <strong>{parsedData.from}</strong>: {parsedData.text}
+                        <span>{date}</span>
+                    </div>
+                );
+            })}
         </div> 
 
     );
