@@ -48,8 +48,16 @@ const ChatApp = () => {
             (message.user && (message.user.id === userId1 || message.user.id === userId2))
         );
     };
-    const handleRoomChange = (roomId) => {
+    const handleRoomChange = async (roomId) => {
         setCurrentRoomId(roomId);
+        setMessages([]) // limpar o state das messages;
+
+        try {
+            const response = await axiosInstance.get(`http://localhost:8080/chat/messages?roomId=${roomId}`);
+            setMessages(response.data);
+        } catch {
+            console.error('Erro ao buscar mensagens', roomId, error);
+        }
     };
     
 
