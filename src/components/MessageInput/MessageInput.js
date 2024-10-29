@@ -19,16 +19,6 @@ const MessageInput = ({ onSendMessage}) => {
     return (
         <div className="message-input">
             <Box sx={{ '& > :not(style)': { m: 1}}}>
-                <InputLabel htmlFor="message"> Mensagem com adornment icon </InputLabel>
-                <Input
-                    id="adornment-message"
-                    startAdornment={
-                        <InputAdornment position="start">
-                            <AccountCircle />
-                        </InputAdornment>
-                    }
-                />
-                <button onClick={handleSendMessage}>Enviar</button>
                 <TextField
                     id="Icon-textfield"
                     label="Enviar-Mensagem"

@@ -8,33 +8,52 @@ import React from 'react'
  * @property {string} roomId 
  */
 
-const MessageList = ({ messages, currentUserId, otherUserId, userMessagesRoomFilter }) => { 
+/** 
+ * * @param {Object} props
+ *  * @param {Message[]} props.messages 
+ * */
+
+const MessageList = ({ messages }) => { 
     if (!Array.isArray(messages)) {
         console.error('Expected an array for messages, but got:', messages);
         return null; // Or render some fallback UI
     }
 
-    const filteredMessages = userMessagesRoomFilter(messages, currentUserId, otherUserId);
-
     return (
         <div className="message-list">
-            {filteredMessages.map((message, index) => {
+            {messages.map((message, index) => {
                 console.log("Full Message Object:", message); // Log the full message object
                 console.log("Message date:", message.date); // Log the date
-                console.log("Parsed Date:", new Date(message.date)); // Log parsed date
 
-                const parsedData = JSON.parse(message.data);
-                const date = new Date(parsedData.date).toLocaleTimeString();
-                console.log("Full Message Object:", message); // Log the full message object
-                console.log("Parsed Date:", date); // Log parsed date
-                return (
-                    <div key={index} className="message">
-                        <strong>{parsedData.from}</strong>: {parsedData.text}
-                        <span>{date}</span>
-                    </div>
-                );
-            })}
-        </div> 
+                        let date, from, text;
+                        if (message.date) {
+                            from = message.from;
+                            text = message.text;
+                            date = new Date(message.date).toLocaleString();
+                        } else {
+                            //nested date field 
+                            try{
+                                const parsedData = JSON.parse(message.data);
+                                from = parsedData.from;
+                                text = parsedData.text;
+                                date = new Date(parsedData.date).toLocaleString();
+                            } catch (error) {
+                                console.error('Error parsing date:', error);
+                                date = 'Data inválida';
+                            }
+                        }
+
+                        console.log("Full Message Object:", message); // Log the full message object
+                        console.log("ParsedData date:", date); // Log the date
+                            return (
+                                <div key={index} className="message">
+                                    <strong>{from}</strong>: {text}
+                                    <span>{date}</span>
+                                </div>
+                            );
+                    
+                })}
+            </div> 
 
     );
 };

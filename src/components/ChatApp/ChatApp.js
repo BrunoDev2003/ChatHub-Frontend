@@ -53,7 +53,7 @@ const ChatApp = () => {
         setMessages([]) // limpar o state das messages;
 
         try {
-            const response = await axiosInstance.get(`http://localhost:8080/chat/messages?roomId=${roomId}`);
+            const response = await axiosInstance.get(`http://localhost:8080/rooms/messages/${roomId}`);
             setMessages(response.data);
         } catch {
             console.error('Erro ao buscar mensagens', roomId, error);
@@ -256,9 +256,10 @@ const ChatApp = () => {
                             <div>ChatApp</div>
                             <MessageList 
                             messages={messages} 
-                            currentUserId={user.id}
-                            otherUserId={currentRoomId}
-                            userMessagesRoomFilter={userMessagesRoomFilter} />
+                            currentUserId={user.id} 
+                            otherUserId={currentRoomId} 
+                            userMessagesRoomFilter={userMessagesRoomFilter}
+                            />
                             <MessageInput onSendMessage={handleSendMessage} />
                         </ContentArea>
                 </MainContent>
