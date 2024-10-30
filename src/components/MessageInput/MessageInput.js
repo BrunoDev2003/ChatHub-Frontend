@@ -18,7 +18,17 @@ const MessageInput = ({ onSendMessage}) => {
     };
     return (
         <div className="message-input">
-            <Box sx={{ '& > :not(style)': { m: 1}}}>
+            <Box sx={{ 
+                '& > :not(style)': { m: 1},
+                position: 'fixed',
+                bottom: 0,
+                width: '100%',
+                background: '#fff',
+                borderTop: '1px solid #ccc',
+                padding: '10px',
+                boxSizing: 'border-box',
+
+        }}>
                 <TextField
                     id="Icon-textfield"
                     label="Enviar-Mensagem"
