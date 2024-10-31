@@ -27,6 +27,7 @@ const PermanentDrawer = ({chatUsers, onRoomChange, onFilterMessage, messages}) =
                 {chatUsers && chatUsers.length > 0 ? (
                     chatUsers.map(user => {
                         const lastMessage = onFilterMessage({desiredUserId: user.id, messages});
+                        console.log(lastMessage);
                         return (
                         <ListItem 
                         button key={user.id}
@@ -49,22 +50,6 @@ const PermanentDrawer = ({chatUsers, onRoomChange, onFilterMessage, messages}) =
                         <ListItemText primary={"Usuarios indísponiveis"}></ListItemText>
                     </ListItem>
                 )} 
-                <ListItem button={true} sx={({
-                    '&:hover': {
-                        cursor: 'pointer',
-                        backgroundColor: theme.palette.primary.light,
-                    },
-                })}>
-                    <ListItemText primary="Chats" />
-                </ListItem>
-                <ListItem button={true} sx={({
-                    '&:hover': {
-                        cursor: 'pointer',
-                        backgroundColor: theme.palette.primary.light,
-                    },
-                })}>
-                    <ListItemText primary="Contatos" />
-                </ListItem>
             </List>
                 <Button
                     variant="contained"
