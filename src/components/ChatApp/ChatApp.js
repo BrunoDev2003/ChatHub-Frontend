@@ -38,7 +38,7 @@ const ChatApp = () => {
     const [error, setError] = useState(null);
     const [currentRoomId, setCurrentRoomId] = useState("initialRoomId");
     
-    const userMessagesFilter = ( {desiredUserId, messages}) => {
+    const userMessagesFilter = ({desiredUserId, messages}) => {
         const userMessages = messages.filter(message => (message.user && (message.user.id === desiredUserId)));
         return userMessages.sort((message1, message2) => message1.date - message2.date)[0]; //pegar a ultima mensagen enviada usando a data como ponto de ordenação das mensagens;
     };
@@ -88,7 +88,7 @@ const ChatApp = () => {
                 headers: {
                     'Content-Type': 'application/json'},
             });
-            setMessages((prevMessages) => [...prevMessages, newMessage]);
+            setMessages(prevMessages => [...prevMessages, newMessage]);
         } catch (error) {
             console.log('Erro ao enviar mensagem', error);
         }        
@@ -251,7 +251,12 @@ const ChatApp = () => {
             </Header>
             {error && <div>{error}</div>}
                 <MainContent>
-                    <PermanentDrawer chatUsers={chatUsers} onRoomChange={handleRoomChange} onFilterMessage={userMessagesFilter} messages={messages} />
+                    <PermanentDrawer 
+                        chatUsers={chatUsers} 
+                        onRoomChange={handleRoomChange} 
+                        onFilterMessage={userMessagesFilter} 
+                        messages={messages} 
+                    />
                         <ContentArea>
                             <div>ChatApp</div>
                             <MessageList 
