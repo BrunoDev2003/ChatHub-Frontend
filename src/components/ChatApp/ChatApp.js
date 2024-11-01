@@ -36,6 +36,7 @@ const ChatApp = () => {
     const [ chatUsers, setChatUsers] = useState(/** @type {User[]}  */([]));
     const [ messages, setMessages ] = useState(/**  @type {Message[]} */([]));
     const [error, setError] = useState(null);
+    const [selectedUser, setSelectedUser] = useState(null);
     const [currentRoomId, setCurrentRoomId] = useState("initialRoomId");
     
     const userMessagesFilter = ({desiredUserId, messages}) => {
@@ -51,6 +52,8 @@ const ChatApp = () => {
     const handleRoomChange = async (roomId) => {
         setCurrentRoomId(roomId);
         setMessages([]) // limpar o state das messages;
+        const user = chatUsers.find(user => user.id === roomId);
+        setSelectedUser(user); // setar o usuário selecionado como o usuário do chat atual;
 
         try {
             const response = await axiosInstance.get(`http://localhost:8080/rooms/messages/${roomId}`);
@@ -258,7 +261,7 @@ const ChatApp = () => {
                         messages={messages} 
                     />
                         <ContentArea>
-                            <div>ChatApp</div>
+                            <div>{selectedUser ? selectedUser.username : 'ChatHub'}</div>
                             <MessageList 
                             messages={messages} 
                             currentUserId={user.id} 
