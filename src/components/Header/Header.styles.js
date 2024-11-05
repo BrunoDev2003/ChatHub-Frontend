@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { createTheme } from '@mui/material/styles';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { CssBaseline } from "@mui/material";
 
 export const theme = createTheme({
     palette: {
@@ -7,6 +8,7 @@ export const theme = createTheme({
             light: '#dd33fa',
             main: '#d500f9',
             dark: '#9500ae',
+            dark_mode: '#01040c',
             contrastText: '#fff',
         },
         secondary: {
@@ -15,5 +17,18 @@ export const theme = createTheme({
             dark: '#6d1b7b',
             contrastText: '#000',
         },
+        mode: 'light',
     },
 });
+
+export const darkTheme = createTheme({
+    palette: {
+            mode: 'dark',
+            primary: {
+                main: theme.palette.primary.dark_mode,
+            },
+            secondary: {
+                main: theme.palette.secondary.dark,
+            },
+        },
+    });
