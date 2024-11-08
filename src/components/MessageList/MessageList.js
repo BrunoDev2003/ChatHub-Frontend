@@ -3,6 +3,8 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import Typography from "@mui/material/Typography";
+import { useTheme } from '@mui/material/styles';
+
 
 /**
  * @typedef {Object} Message
@@ -18,11 +20,13 @@ import Typography from "@mui/material/Typography";
  * */
 
 const MessageList = ({ messages }) => {
+  const theme = useTheme();
   if (!Array.isArray(messages)) {
     console.error("Expected an array for messages, but got:", messages);
     return null; // Ou renderizar uma mensagem de erro ou UI alternativa;
   }
 
+  
   return (
     <List
       sx={{
@@ -59,15 +63,20 @@ const MessageList = ({ messages }) => {
           console.log("Full Message Object:", message); // Logar o message object;
           console.log("ParsedData date:", date); // Logar a data;
           return (
-            <ListItem key={index} sx={{ alignItems: "flex-start" }}>
+            <ListItem key={index} sx={{ 
+                alignItems: "flex-start",
+                backgroundColor: theme.palette.mode === 'light' ? theme.palette.primary.light : theme.palette.background.paper,
+              }}>
               <ListItemText
                 primary={
                   <React.Fragment>
                     <Typography
-                      sx={{ display: "inline", fontWeight: "bold" }}
+                      sx={{ display: "inline",
+                        fontWeight: 'bold',
+                        color: theme.palette.mode === 'light' ? theme.palette.primary.dark_mode : theme.palette.text.primary, 
+                      }}
                       component="span"
                       variant="body2"
-                      color="text.primary"
                     >
                       {from}
                     </Typography>

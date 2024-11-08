@@ -2,6 +2,8 @@ import React from "react";
 import { Drawer, List, ListItem, ListItemText, Button } from "@mui/material";
 import PropTypes from "prop-types";
 import { theme } from "../Header/Header.styles";
+import { useTheme } from '@mui/material/styles';
+
 
 const PermanentDrawer = ({
   chatUsers,
@@ -9,6 +11,8 @@ const PermanentDrawer = ({
   onFilterMessage,
   messages,
 }) => {
+  const theme = useTheme();
+
   return (
     <Drawer
       variant="permanent"
@@ -20,7 +24,7 @@ const PermanentDrawer = ({
       }}
       PaperProps={{
         sx: {
-          backgroundColor: theme.palette.primary.main,
+          backgroundColor: theme.palette.primary.mode === 'light' ? theme.palette.primary.main : theme.palette.primary.main,
         },
         style: {
           width: 240,
@@ -71,7 +75,7 @@ const PermanentDrawer = ({
                 sx={{
                   "&:hover": {
                     cursor: "pointer",
-                    backgroundColor: theme.palette.primary.light,
+                    backgroundColor: theme.palette.primary.mode === 'light' ? theme.palette.primary.light : theme.palette.action.hover,
                   },
                 }}
               >
@@ -90,8 +94,9 @@ const PermanentDrawer = ({
       </List>
       <Button
         variant="contained"
-        color="primary"
         sx={{
+          color: theme.palette.mode === 'light' ? theme.palette.primary.contrastText : theme.palette.text.primary,
+          backgroundColor: theme.palette.mode === 'light' ? theme.palette.primary.dark : theme.palette.background.paper,
           position: "absolute",
           bottom: 10,
           left: "50%",

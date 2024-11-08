@@ -11,10 +11,13 @@ import { Logout } from '@mui/icons-material';
 import axiosInstance from '../../axiosInstance';
 import  axios  from 'axios';
 import { Palette } from '@mui/icons-material';
+import { useTheme } from '@mui/material/styles';
+
 
 const Header = ({isUserOnline}) => {
     const navigate = useNavigate();
     const { user } = useUser();
+    const theme = useTheme();
 
     const handleScrollToBottom = () => {
         window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
@@ -35,9 +38,9 @@ const Header = ({isUserOnline}) => {
             position="static" 
             sx={{
                 borderBottom: '1px solid #000',
-                backgroundColor: theme.palette.primary.main
+                backgroundColor: theme.palette.mode === 'light' ? theme.palette.primary.main : theme.palette.primary.dark
             }}
-        >
+            >
             <Toolbar>
                 <Typography variant="h6" sx={{ flexGrow: 1}}>
                     { user.username } {isUserOnline ? ' (Online)' : ' (Offline)'}

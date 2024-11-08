@@ -11,6 +11,7 @@ export const theme = createTheme({
             dark: '#9500ae',
             dark_mode: '#01040c',
             contrastText: '#fff',
+            boldText: '#121212',
         },
         secondary: {
             light: '#af52bf',
@@ -25,33 +26,30 @@ export const darkTheme = createTheme({
     palette: {
             mode: 'dark',
             primary: {
-                main: '#ff5252',
-                action: {
-                    active: '#fff',
-                    selected: (255, 255, 255, 0.16),
-                    disabledBackground: (255, 255, 255, 0.12),
-                    hover: (255, 255, 255, 0.08),
-                    disabled: (255, 255, 255, 0.3),
-                },
-                light: '#3d3636',
-                dark: '#121212',
-                text: '#fff',
+                main: theme.palette.primary.dark_mode,
                 contrastText: '#fff',
             },
             secondary: {
                 main: '#ff5252',
                 light: '#3d3636',
-                dark: '#545b5b',
-                text: (255, 255, 255, 0.7),
+                dark: '#121212',
                 contrastText: '#fff',
             },
             background: {
                 default: '#121212',
                 paper: '#121212',
             },
-            divider: (255, 255, 255, 0.12),
-            disabled: {
-                text: (255, 255, 255, 0.5)
-            }
+            text: {
+                primary: '#fff',
+                secondary: 'rgba(255, 255, 255, 0.7)',
+            },
+            action: {
+                active: '#fff',
+                selected: 'rgba(255, 255, 255, 0.16)',
+                disabledBackground: 'rgba(255, 255, 255, 0.12)',
+                hover: 'rgba(255, 255, 255, 0.08)',
+                disabled: 'rgba(255, 255, 255, 0.3)',
+            },
+            divider: 'rgba(255, 255, 255, 0.12)',
         },
     });

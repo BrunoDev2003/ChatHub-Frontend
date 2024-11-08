@@ -7,9 +7,12 @@ import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import Button from "@mui/material/Button";
+import { useTheme } from '@mui/material/styles';
+
 
 const MessageInput = ({ onSendMessage }) => {
     const [message, setMessage] = useState("");
+    const theme = useTheme();
 
     const handleSendMessage = () => {
     if (message.trim() !== "") {
@@ -25,7 +28,7 @@ const MessageInput = ({ onSendMessage }) => {
                 position: "fixed",
                 bottom: 0,
                 width: "100%",
-                background: "#fff",
+                background: theme.palette.mode === 'light' ? "#fff" : "#000",
                 borderTop: "1px solid #ccc",
                 padding: "10px",
                 boxSizing: "border-box",

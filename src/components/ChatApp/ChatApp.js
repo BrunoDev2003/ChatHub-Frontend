@@ -284,20 +284,24 @@ const ChatApp = () => {
             onFilterMessage={userMessagesFilter}
             messages={messages}
           />
-          <ContentArea>
-            <div>{selectedUser ? selectedUser.username : "ChatHub"}</div>
+          <ContentArea sx={{color: theme.palette.mode ==='light' ? theme.palette.primary.dark_mode : theme.palette.text.primary}}>
+            <div>
+              {selectedUser ? selectedUser.username : "ChatHub"}
+              </div>
             <MessageList
               messages={messages}
               currentUserId={user.id}
-              otherUserId={currentRoomId}
+              otherUserId={currentRoomId} 
               userMessagesRoomFilter={userMessagesRoomFilter}
             />
             <MessageInput onSendMessage={handleSendMessage} />
           </ContentArea>
-      <Button variant="contained" onClick={() => setIsDarkMode(!isDarkMode)}>
+          </MainContent>
+      <Button 
+      variant="contained" 
+      onClick={() => setIsDarkMode(!isDarkMode)}>
         Trocar para Modo Escuro.
       </Button>
-        </MainContent>
       </Container>
     </ThemeProvider>
   );
