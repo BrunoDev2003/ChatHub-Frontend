@@ -73,7 +73,7 @@ const MessageList = ({ messages }) => {
                     <Typography
                       sx={{ display: "inline",
                         fontWeight: 'bold',
-                        color: theme.palette.mode === 'light' ? theme.palette.primary.dark_mode : theme.palette.text.primary, 
+                        color: theme.palette.mode === 'light' ? theme.palette.primary.boldText : theme.palette.text.primary, 
                       }}
                       component="span"
                       variant="body2"

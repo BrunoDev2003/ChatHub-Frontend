@@ -6,12 +6,12 @@ export const theme = createTheme({
     palette: {
         mode: 'light',
         primary: {
-            light: '#dd33fa',
-            main: '#d500f9',
+            light: '#e0e0e0',
+            main: '#90caf9',
             dark: '#9500ae',
             dark_mode: '#01040c',
             contrastText: '#fff',
-            boldText: '#121212',
+            boldText: '#673ab7',
         },
         secondary: {
             light: '#af52bf',

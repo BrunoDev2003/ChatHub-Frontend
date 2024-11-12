@@ -13,6 +13,7 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { theme, darkTheme } from "../Header/Header.styles";
 import { Button } from "@mui/material";
+import Typography from "@mui/material/Typography";
 
 //current GET error on /chat/emit: GRAVE: Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: com.google.gson.JsonSyntaxException: java.lang.NumberFormatException: Expected an int but was 1729214070107 at line 1 column 70 path $.date] with root cause
 //java.lang.NumberFormatException: Expected an int but was 1729214070107 at line 1 column 70 path $.date
@@ -285,9 +286,10 @@ const ChatApp = () => {
             messages={messages}
           />
           <ContentArea sx={{color: theme.palette.mode ==='light' ? theme.palette.primary.dark_mode : theme.palette.text.primary}}>
-            <div>
+            <Typography sx={{color: theme.palette.mode ==='light' ? theme.palette.primary.dark_mode : theme.palette.text.primary}}>
               {selectedUser ? selectedUser.username : "ChatHub"}
-              </div>
+            </Typography>
+              
             <MessageList
               messages={messages}
               currentUserId={user.id}

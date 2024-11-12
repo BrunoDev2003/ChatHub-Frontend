@@ -41,26 +41,29 @@ const Header = ({isUserOnline}) => {
                 backgroundColor: theme.palette.mode === 'light' ? theme.palette.primary.main : theme.palette.primary.dark
             }}
             >
-            <Toolbar>
-                <Typography variant="h6" sx={{ flexGrow: 1}}>
-                    { user.username } {isUserOnline ? ' (Online)' : ' (Offline)'}
+                <Typography variant="h8" sx={{ color: "CaptionText", flexDirection: 'column-reverse' }}>
+                    { user.username } 
                 </Typography>
-                <Button color="inherit" startIcon={<Logout />} onClick={handleLogout}>
+                <Toolbar>
+                <Typography variant="h8" sx={{ flexGrow: 1, color: "green"}}>
+                    {isUserOnline ? ' (Online)' : ' (Offline)'}
+                </Typography>
+                <Button variant="outlined" color="error" startIcon={<Logout />} onClick={handleLogout}>
                     Logout
                 </Button>
-                <Link href="mailto:brunogusmao43@gmail.com" color="inherit" sx={{marginRight: 20, paddingLeft:2}}>
+                <Link href="mailto:brunogusmao43@gmail.com" color="secondary" sx={{marginRight: 20, paddingLeft:2}}>
                     Contato
                 </Link>
-                <Link href="https://github.com/BrunoDev2003" color="inherit" sx={{marginRight: 20}}>
+                <Link href="https://github.com/BrunoDev2003" color="secondary" sx={{marginRight: 20}}>
                     Github
                 </Link>
-                <Link href="https://brunodev-portfolio.herokuapp.com" color="inherit" sx={{marginRight: 20}}>
+                <Link href="https://brunodev-portfolio.herokuapp.com" color="secondary" sx={{marginRight: 20}}>
                     Portfolio 
                 </Link>
-                <Button color="inherit" onClick={() => navigate('/login')}>
+                <Button color="success" onClick={() => navigate('/login')}>
                     Histórico
                 </Button>
-                <Button color="inherit" onClick={handleScrollToBottom}>
+                <Button color="success" onClick={handleScrollToBottom}>
                     Ir para o final
                 </Button>
             </Toolbar>

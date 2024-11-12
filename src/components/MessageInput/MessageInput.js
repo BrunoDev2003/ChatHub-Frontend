@@ -8,6 +8,7 @@ import TextField from "@mui/material/TextField";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import Button from "@mui/material/Button";
 import { useTheme } from '@mui/material/styles';
+import SendIcon from "@mui/icons-material/Send";
 
 
 const MessageInput = ({ onSendMessage }) => {
@@ -25,7 +26,7 @@ const MessageInput = ({ onSendMessage }) => {
             <Box
                 sx={{
                 "& > :not(style)": { m: 1 },
-                position: "fixed",
+                position: "absolute",
                 bottom: 0,
                 width: "100%",
                 background: theme.palette.mode === 'light' ? "#fff" : "#000",
@@ -52,7 +53,7 @@ const MessageInput = ({ onSendMessage }) => {
             variant="standard"
         />
 
-        <Button onClick={handleSendMessage} variant="contained" color="success">
+        <Button onClick={handleSendMessage} variant="contained" endIcon={<SendIcon />}>
             Enviar
         </Button>
         </Box>

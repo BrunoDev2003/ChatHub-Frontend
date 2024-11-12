@@ -4,9 +4,8 @@ import axiosInstance from '../../axiosInstance';
 import axios from 'axios';
 import { Container, Header, Form, Input, Button, Footer } from './LoginPage.styles';
 import { useUser } from '../../UserContext';
-import { Alert } from '@mui/material';
-import { CheckCircleOutline } from '@mui/icons-material';
-
+import { Alert, FilledInput, InputAdornment, InputLabel, IconButton } from '@mui/material';
+import { CheckCircleOutline, Visibility, VisibilityOff } from '@mui/icons-material';
 const LoginPage = ({ onLogin }) => {
 
   const [username, setUsername] = useState('');
@@ -15,6 +14,9 @@ const LoginPage = ({ onLogin }) => {
   const [success, setSuccess] = useState('');
   const navigate = useNavigate();
   const { setUser } = useUser();
+  const [showPassword, setShowPassword] = React.useState(false);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   useEffect(() => {
     axiosInstance.get('http://localhost:8080/api/health')
@@ -58,17 +60,30 @@ const LoginPage = ({ onLogin }) => {
       {error && <Alert iconMapping={{ success: <CheckCircleOutline fontSize="inherit"/>}} variant="filled" severity="error">{error}</Alert>}
       {success && <Alert iconMapping={{ success: <CheckCircleOutline fontSize="inherit"/>}} variant="filled" severity="success">{success}</Alert>}
       <Form onSubmit={handleSubmit}>
-        <Input type="text"
-        placeholder="Nome de usuário" 
+        <InputLabel>Nome de usuário:</InputLabel>
+        <FilledInput 
+        sx={{width: '100%', marginBottom: '1rem'}}
         value={username} 
-        onChange={(e) => setUsername(e.target.value)} 
-        />
-
-        <Input type="password" 
-        placeholder="Senha" 
-        value={password} 
-        onChange={(e) => setPassword(e.target.value)} 
-        />
+        onChange={(e) => setUsername(e.target.value)}>
+        </FilledInput>
+        <InputLabel>Senha:</InputLabel>
+        <FilledInput
+        type={showPassword ? 'text' : 'password'}
+        endAdornment={
+          <InputAdornment position="end">
+            <IconButton 
+            aria-label={
+              showPassword ? 'Esconder senha' : 'Mostrar senha'
+            }
+            onClick={handleClickShowPassword}
+            edge="end"
+            >
+              {showPassword ? <VisibilityOff /> : <Visibility />}
+            </IconButton>
+          </InputAdornment>
+        }
+        onChange={(e) => setPassword(e.target.value)}>
+        </FilledInput>
 
         <Button type="submit">Login</Button>
       </Form>
