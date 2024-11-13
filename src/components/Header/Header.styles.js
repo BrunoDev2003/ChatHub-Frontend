@@ -6,11 +6,11 @@ export const theme = createTheme({
     palette: {
         mode: 'light',
         primary: {
-            light: '#e0e0e0',
-            main: '#90caf9',
-            dark: '#9500ae',
+            light: '#e1f5fe',
+            main: '#e1f5fe',
+            dark: '#03a9f4',
             dark_mode: '#01040c',
-            contrastText: '#fff',
+            contrastText: '#000',
             boldText: '#673ab7',
         },
         secondary: {
@@ -33,7 +33,7 @@ export const darkTheme = createTheme({
                 main: '#ff5252',
                 light: '#3d3636',
                 dark: '#121212',
-                contrastText: '#fff',
+                contrastText: '#212121',
             },
             background: {
                 default: '#121212',

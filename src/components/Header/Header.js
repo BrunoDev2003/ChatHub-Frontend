@@ -12,6 +12,7 @@ import axiosInstance from '../../axiosInstance';
 import  axios  from 'axios';
 import { Palette } from '@mui/icons-material';
 import { useTheme } from '@mui/material/styles';
+import MessageList from '../MessageList/MessageList';
 
 
 const Header = ({isUserOnline}) => {
@@ -20,7 +21,10 @@ const Header = ({isUserOnline}) => {
     const theme = useTheme();
 
     const handleScrollToBottom = () => {
-        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        const messageList = document.querySelector('.message-list');
+            messageList.scrollTo({ top: messageList.scrollHeight, behavior: 'smooth' });
+        
+        
 
     };
 
@@ -41,7 +45,7 @@ const Header = ({isUserOnline}) => {
                 backgroundColor: theme.palette.mode === 'light' ? theme.palette.primary.main : theme.palette.primary.dark
             }}
             >
-                <Typography variant="h8" sx={{ color: "CaptionText", flexDirection: 'column-reverse' }}>
+                <Typography variant="h8" sx={{ color: theme.palette.mode === 'light' ? theme.palette.primary.contrastText : theme.palette.text.primary, flexDirection: 'column-reverse' }}>
                     { user.username } 
                 </Typography>
                 <Toolbar>

@@ -29,7 +29,7 @@ const MessageInput = ({ onSendMessage }) => {
                 position: "absolute",
                 bottom: 0,
                 width: "100%",
-                background: theme.palette.mode === 'light' ? "#fff" : "#000",
+                background: theme.palette.mode === 'light' ? theme.palette.primary.dark : theme.palette.secondary.contrastText,
                 borderTop: "1px solid #ccc",
                 padding: "10px",
                 boxSizing: "border-box",

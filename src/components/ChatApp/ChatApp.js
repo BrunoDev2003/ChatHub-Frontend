@@ -301,6 +301,7 @@ const ChatApp = () => {
           </MainContent>
       <Button 
       variant="contained" 
+      color="info"
       onClick={() => setIsDarkMode(!isDarkMode)}>
         Trocar para Modo Escuro.
       </Button>
