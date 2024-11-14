@@ -13,6 +13,7 @@ import  axios  from 'axios';
 import { Palette } from '@mui/icons-material';
 import { useTheme } from '@mui/material/styles';
 import MessageList from '../MessageList/MessageList';
+import { Avatar } from '@mui/material';
 
 
 const Header = ({isUserOnline, messageListRef}) => {
@@ -43,8 +44,12 @@ const Header = ({isUserOnline, messageListRef}) => {
                 backgroundColor: theme.palette.mode === 'light' ? theme.palette.primary.main : theme.palette.primary.dark
             }}
             >
-                <Typography variant="h8" sx={{ color: theme.palette.mode === 'light' ? theme.palette.primary.contrastText : theme.palette.text.primary, flexDirection: 'column-reverse' }}>
-                    { user.username } 
+                <Typography variant="h5" sx={{ color: theme.palette.mode === 'light' ? theme.palette.primary.usernameColor : theme.palette.text.primary, flexDirection: 'column-reverse' }}>
+                <Avatar
+                sx={{ width: 60, height: 60}}
+                > 
+                { user.username } 
+                </Avatar>     
                 </Typography>
                 <Toolbar>
                 <Typography variant="h8" sx={{ flexGrow: 1, color: "green"}}>

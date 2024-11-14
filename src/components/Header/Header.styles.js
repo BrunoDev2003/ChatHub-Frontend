@@ -12,6 +12,7 @@ export const theme = createTheme({
             dark_mode: '#01040c',
             contrastText: '#000',
             boldText: '#673ab7',
+            usernameColor: '#546e7a',
         },
         secondary: {
             light: '#af52bf',

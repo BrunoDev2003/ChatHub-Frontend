@@ -4,6 +4,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import Typography from "@mui/material/Typography";
 import { useTheme } from '@mui/material/styles';
+import { Skeleton} from "@mui/material";
 
 
 /**
@@ -64,29 +65,33 @@ const MessageList = ({ messages, messageListRef }) => {
           console.log("Full Message Object:", message); // Logar o message object;
           console.log("ParsedData date:", date); // Logar a data;
           return (
-            <ListItem key={index} sx={{ 
-                alignItems: "flex-start",
-                backgroundColor: theme.palette.mode === 'light' ? theme.palette.primary.light : theme.palette.background.paper,
-              }}>
-              <ListItemText
-                primary={
-                  <React.Fragment>
-                    <Typography
-                      sx={{ display: "inline",
-                        fontWeight: 'bold',
-                        color: theme.palette.mode === 'light' ? theme.palette.primary.boldText : theme.palette.text.primary, 
-                      }}
-                      component="span"
-                      variant="body2"
-                    >
-                      {from}
-                    </Typography>
-                    {`: ${text}`}
-                  </React.Fragment>
-                }
-                secondary={date}
-              />
-            </ListItem>
+            message ? (
+              <ListItem key={index} sx={{ 
+                  alignItems: "flex-start",
+                  backgroundColor: theme.palette.mode === 'light' ? theme.palette.primary.light : theme.palette.primary.light,
+                }}>
+                <ListItemText
+                  primary={
+                    <React.Fragment>
+                      <Typography
+                        sx={{ display: "inline",
+                          fontWeight: 'bold',
+                          color: theme.palette.mode === 'light' ? theme.palette.primary.boldText : theme.palette.text.primary, 
+                        }}
+                        component="span"
+                        variant="body2"
+                      >
+                        {from}
+                      </Typography>
+                      {`: ${text}`}
+                    </React.Fragment>
+                  }
+                  secondary={date}
+                />
+              </ListItem>
+            ) : (
+              <Skeleton variant="circular" sx={{fontSize: '1rem'}} />
+            )
           );
         })}
       </div>
