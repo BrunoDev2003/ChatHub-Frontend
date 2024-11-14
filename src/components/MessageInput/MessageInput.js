@@ -26,7 +26,7 @@ const MessageInput = ({ onSendMessage }) => {
             <Box
                 sx={{
                 "& > :not(style)": { m: 1 },
-                position: "absolute",
+                position: "relative",
                 bottom: 0,
                 width: "100%",
                 background: theme.palette.mode === 'light' ? theme.palette.primary.dark : theme.palette.secondary.contrastText,

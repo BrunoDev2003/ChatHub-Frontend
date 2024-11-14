@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useRef} from "react";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
@@ -19,7 +19,7 @@ import { useTheme } from '@mui/material/styles';
  *  * @param {Message[]} props.messages
  * */
 
-const MessageList = ({ messages }) => {
+const MessageList = ({ messages, messageListRef }) => {
   const theme = useTheme();
   if (!Array.isArray(messages)) {
     console.error("Expected an array for messages, but got:", messages);
@@ -29,6 +29,7 @@ const MessageList = ({ messages }) => {
   
   return (
     <List
+      ref={messageListRef}
       sx={{
         maxHeight: "calc(100vh - 150px)",
         overflow: "auto",

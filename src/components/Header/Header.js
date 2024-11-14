@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useRef} from 'react'
 import Typography from '@mui/material/Typography';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -15,17 +15,15 @@ import { useTheme } from '@mui/material/styles';
 import MessageList from '../MessageList/MessageList';
 
 
-const Header = ({isUserOnline}) => {
+const Header = ({isUserOnline, messageListRef}) => {
     const navigate = useNavigate();
     const { user } = useUser();
     const theme = useTheme();
 
     const handleScrollToBottom = () => {
-        const messageList = document.querySelector('.message-list');
-            messageList.scrollTo({ top: messageList.scrollHeight, behavior: 'smooth' });
-        
-        
-
+        if(messageListRef.current) {
+            messageListRef.current.scrollTo({top: messageListRef.current.scrollHeight, behavior: 'smooth' });
+        }
     };
 
     const handleLogout = async () => {
@@ -52,7 +50,7 @@ const Header = ({isUserOnline}) => {
                 <Typography variant="h8" sx={{ flexGrow: 1, color: "green"}}>
                     {isUserOnline ? ' (Online)' : ' (Offline)'}
                 </Typography>
-                <Button variant="outlined" color="error" startIcon={<Logout />} onClick={handleLogout}>
+                <Button variant="outlined" color="error" startIcon={<Logout />} onClick={handleLogout} sx={{marginLeft: 5, alignContent:'space-evenly'}}>
                     Logout
                 </Button>
                 <Link href="mailto:brunogusmao43@gmail.com" color="secondary" sx={{marginRight: 20, paddingLeft:2}}>
@@ -64,11 +62,11 @@ const Header = ({isUserOnline}) => {
                 <Link href="https://brunodev-portfolio.herokuapp.com" color="secondary" sx={{marginRight: 20}}>
                     Portfolio 
                 </Link>
-                <Button color="success" onClick={() => navigate('/login')}>
+                <Button color="success" variant="outlined" size="small" onClick={() => navigate('/login')} sx={{marginLeft: 5, alignContent:'space-evenly'}}>
                     Histórico
                 </Button>
-                <Button color="success" onClick={handleScrollToBottom}>
-                    Ir para o final
+                <Button color="success" variant="outlined" size="small" onClick={handleScrollToBottom} sx={{marginLeft: 5, alignContent:'space-evenly'}}>
+                    Descer
                 </Button>
             </Toolbar>
             

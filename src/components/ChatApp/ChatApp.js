@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Container, MainContent, ContentArea } from "./ChatApp.styles";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../axiosInstance";
@@ -42,6 +42,7 @@ const ChatApp = () => {
   const [selectedUser, setSelectedUser] = useState(null);
   const [currentRoomId, setCurrentRoomId] = useState("initialRoomId");
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const messageListRef = useRef(null);
 
   const userMessagesFilter = ({ desiredUserId, messages }) => {
     const userMessages = messages.filter(
@@ -276,7 +277,7 @@ const ChatApp = () => {
     <ThemeProvider theme={isDarkMode ? darkTheme : theme}>
       <CssBaseline />
       <Container>
-        <Header userName={user.username} isUserOnline={isOnline}></Header>
+        <Header userName={user.username} isUserOnline={isOnline} messageListRef={messageListRef}></Header>
         {error && <div>{error}</div>}
         <MainContent>
           <PermanentDrawer
@@ -295,6 +296,7 @@ const ChatApp = () => {
               currentUserId={user.id}
               otherUserId={currentRoomId} 
               userMessagesRoomFilter={userMessagesRoomFilter}
+              messageListRef={messageListRef}
             />
             <MessageInput onSendMessage={handleSendMessage} />
           </ContentArea>
