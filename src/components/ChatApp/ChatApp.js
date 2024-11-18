@@ -293,7 +293,6 @@ const ChatApp = () => {
                 <AccountCircleIcon sx={{fontSize:'45px'}}>
                 </AccountCircleIcon>
                 {selectedUser ? selectedUser.username : "ChatHub"}
-             
             </Typography>
               
             <MessageList

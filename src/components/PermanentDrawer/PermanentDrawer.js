@@ -3,6 +3,7 @@ import { Drawer, List, ListItem, ListItemText, Button } from "@mui/material";
 import PropTypes from "prop-types";
 import { theme } from "../Header/Header.styles";
 import { useTheme } from '@mui/material/styles';
+import GroupAddIcon from '@mui/icons-material/GroupAdd';
 
 
 const PermanentDrawer = ({
@@ -92,20 +93,19 @@ const PermanentDrawer = ({
           </ListItem>
         )}
       </List>
-      <Button
-        variant="contained"
+      <GroupAddIcon
+        cursor="pointer"
+        fontSize="large"
         sx={{
           color: theme.palette.mode === 'light' ? theme.palette.primary.contrastText : theme.palette.text.primary,
           backgroundColor: theme.palette.mode === 'light' ? theme.palette.primary.dark : theme.palette.background.paper,
           position: "absolute",
           bottom: 10,
           left: "50%",
-          transform: "translateX(-50%)",
         }}
         onClick={() => console.log("Create group chat...")}
       >
-        Criar grupo
-      </Button>
+      </GroupAddIcon>
     </Drawer>
   );
 };

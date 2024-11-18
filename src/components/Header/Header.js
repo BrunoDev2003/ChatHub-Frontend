@@ -14,6 +14,7 @@ import { Palette } from '@mui/icons-material';
 import { useTheme } from '@mui/material/styles';
 import MessageList from '../MessageList/MessageList';
 import { Avatar } from '@mui/material';
+import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
 
 
 const Header = ({isUserOnline, messageListRef}) => {
@@ -70,9 +71,8 @@ const Header = ({isUserOnline, messageListRef}) => {
                 <Button color="success" variant="outlined" size="small" onClick={() => navigate('/login')} sx={{marginLeft: 5, alignContent:'space-evenly'}}>
                     Histórico
                 </Button>
-                <Button color="success" variant="outlined" size="small" onClick={handleScrollToBottom} sx={{marginLeft: 5, alignContent:'space-evenly'}}>
-                    Descer
-                </Button>
+                <ArrowCircleDownIcon color="info" variant="outlined" size="medium" cursor="pointer" onClick={handleScrollToBottom} sx={{marginLeft: 5, alignContent:'space-evenly'}}>
+                </ArrowCircleDownIcon>
             </Toolbar>
             
         </AppBar>
