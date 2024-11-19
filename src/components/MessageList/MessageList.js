@@ -5,6 +5,9 @@ import ListItemText from "@mui/material/ListItemText";
 import Typography from "@mui/material/Typography";
 import { useTheme } from '@mui/material/styles';
 import { Skeleton} from "@mui/material";
+import axiosInstance from '../../axiosInstance';
+import { IconButton } from "@mui/material";
+import  DeleteForeverRoundedIcon  from "@mui/icons-material/DeleteForever";
 
 
 /**
@@ -25,6 +28,17 @@ const MessageList = ({ messages, messageListRef }) => {
   if (!Array.isArray(messages)) {
     console.error("Expected an array for messages, but got:", messages);
     return null; // Ou renderizar uma mensagem de erro ou UI alternativa;
+  }
+
+  const handleDelete = async (message) => {
+    try {
+      const response = await axiosInstance.delete(`/rooms/${message.roomId}/messages`, { 
+        data: message,
+      });
+      console.log("Response:", response.data); //deleção de mensagem bem sucedida!;
+    } catch (error) {
+      console.error("Error deleting message:", error);
+    }
   }
 
   
@@ -88,6 +102,9 @@ const MessageList = ({ messages, messageListRef }) => {
                   }
                   secondary={date}
                 />
+                <IconButton edge="end" aria-label="deletar" onClick={() => handleDelete(message)}>
+                  <DeleteForeverRoundedIcon />
+                </IconButton>
               </ListItem>
             ) : (
               <Skeleton variant="circular" sx={{fontSize: '1rem'}} />
