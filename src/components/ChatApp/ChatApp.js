@@ -70,7 +70,7 @@ const ChatApp = () => {
 
     try {
       const response = await axiosInstance.get(
-        `http://localhost:8080/rooms/messages/${roomId}`
+        `http://localhost:8080/api/rooms/messages/${roomId}`
       );
       setMessages(response.data);
     } catch {

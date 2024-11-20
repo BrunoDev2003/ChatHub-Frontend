@@ -32,8 +32,25 @@ const MessageList = ({ messages, messageListRef }) => {
 
   const handleDelete = async (message) => {
     try {
-      const response = await axiosInstance.delete(`/rooms/${message.roomId}/messages`, { 
+      let roomId;
+      console.log("object message", message);
+      console.log("roomId message", message.roomId);
+
+      if (message.roomId) {
+        roomId = `rooms:${message.roomId}`;
+      } else if (message.data) {
+        const parsedData = JSON.parse(message.data);
+        roomId = `rooms:${parsedData.roomId}`;
+      } else { 
+        throw new Error("Message data is undefined"); 
+      }
+      console.log("roomId parsedData", roomId);
+      console.log("Serialized message data for removal:", JSON.stringify(message));
+      const response = await axiosInstance.delete(`rooms/${roomId}/messages`, { 
         data: message,
+        headers: {
+          "Content-Type": "application/json",
+        }
       });
       console.log("Response:", response.data); //deleção de mensagem bem sucedida!;
     } catch (error) {
