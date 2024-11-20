@@ -15,6 +15,7 @@ import { useTheme } from '@mui/material/styles';
 import MessageList from '../MessageList/MessageList';
 import { Avatar } from '@mui/material';
 import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
+import CircleRoundedIcon from '@mui/icons-material/CircleRounded';
 
 
 const Header = ({isUserOnline, messageListRef}) => {
@@ -45,17 +46,17 @@ const Header = ({isUserOnline, messageListRef}) => {
                 backgroundColor: theme.palette.mode === 'light' ? theme.palette.primary.main : theme.palette.primary.dark
             }}
             >
-                <Typography variant="h5" sx={{ color: theme.palette.mode === 'light' ? theme.palette.primary.usernameColor : theme.palette.text.primary, flexDirection: 'column-reverse' }}>
+                <Typography variant="h5" component="div" display="flex" alignItems="center" sx={{ color: theme.palette.mode === 'light' ? theme.palette.primary.usernameColor : theme.palette.text.primary, alignContent: 'center' }}>
                 <Avatar
-                sx={{ width: 60, height: 60}}
+                    sx={{ width: 60, height: 60}}
                 > 
-                { user.username } 
-                </Avatar>     
-                </Typography>
-                <Toolbar>
-                <Typography variant="h8" sx={{ flexGrow: 1, color: "green"}}>
+                    { user.username } 
+                </Avatar> 
+                <CircleRoundedIcon sx={{color: theme.palette.mode === 'light' ? 'green' : 'cyan'}} />
                     {isUserOnline ? ' (Online)' : ' (Offline)'}
                 </Typography>
+                <Toolbar>
+                <Typography variant="h8" component="div" display="flex" alignItems={'center'}>
                 <Button variant="outlined" color="error" startIcon={<Logout />} onClick={handleLogout} sx={{marginLeft: 5, alignContent:'space-evenly'}}>
                     Logout
                 </Button>
@@ -73,6 +74,7 @@ const Header = ({isUserOnline, messageListRef}) => {
                 </Button>
                 <ArrowCircleDownIcon color="info" variant="outlined" size="medium" cursor="pointer" onClick={handleScrollToBottom} sx={{marginLeft: 5, alignContent:'space-evenly'}}>
                 </ArrowCircleDownIcon>
+                </Typography>
             </Toolbar>
             
         </AppBar>

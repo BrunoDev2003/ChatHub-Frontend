@@ -21,9 +21,10 @@ import  DeleteForeverRoundedIcon  from "@mui/icons-material/DeleteForever";
 /**
  * * @param {Object} props
  *  * @param {Message[]} props.messages
+ * * @param {Function} props.setMessages
  * */
 
-const MessageList = ({ messages, messageListRef }) => {
+const MessageList = ({ messages, setMessages, messageListRef }) => {
   const theme = useTheme();
   if (!Array.isArray(messages)) {
     console.error("Expected an array for messages, but got:", messages);
@@ -53,6 +54,9 @@ const MessageList = ({ messages, messageListRef }) => {
         }
       });
       console.log("Response:", response.data); //deleção de mensagem bem sucedida!;
+
+      //Atualizar UI para remover a mensagem deletada do state de mensagens;
+      setMessages((prevMessages) => prevMessages.filter((msg) => msg !== message));
     } catch (error) {
       console.error("Error deleting message:", error);
     }

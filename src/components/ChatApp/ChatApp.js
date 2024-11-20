@@ -297,6 +297,7 @@ const ChatApp = () => {
               
             <MessageList
               messages={messages}
+              setMessages={setMessages}
               currentUserId={user.id}
               otherUserId={currentRoomId} 
               userMessagesRoomFilter={userMessagesRoomFilter}
