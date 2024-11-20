@@ -97,6 +97,11 @@ const MessageList = ({ messages, setMessages, messageListRef }) => {
             date = new Date(message.date).toLocaleString();
           }
 
+          //Filtar mensagens invalidas;
+          if (!from || !text || date == "Invalid Date") {
+            return null;
+          }
+
           console.log("Full Message Object:", message); // Logar o message object;
           console.log("ParsedData date:", date); // Logar a data;
           return (

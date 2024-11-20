@@ -1,8 +1,9 @@
 import styled from 'styled-components'; 
+import { useTheme } from '@mui/material/styles';
 
 export const Container = styled.div`
     align-items: center;
-    background-color: #f0f0f0;
+    background-color: #f8f9fa;
     display:flex;
     flex-direction: column;
     height: 100vh;
@@ -11,7 +12,7 @@ export const Container = styled.div`
 `;
 
 export const Header = styled.h1`
-    background-color: #BC66DA;
+    background-color: ${({ theme }) => useTheme().palette.primary.dark};
     border-radius: 8px;
     color: #000;
     overflow: hidden;
@@ -43,11 +44,10 @@ export const Button = styled.button`
     cursor: pointer;
     padding: 0.5rem;
 `;
-
 export const Footer = styled.footer`
-    background-color: #BC66DA;
+    background-color: ${({ theme }) => useTheme().palette.primary.light};
     bottom: 0;
-    color: #000;
+    color: ${({ theme }) => useTheme().palette.primary.boldText};
     height: 30px;
     position: fixed;
     text-align: center;

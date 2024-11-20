@@ -4,9 +4,12 @@ import axiosInstance from '../../axiosInstance';
 import axios from 'axios';
 import { Container, Header, Form, Input, Button, Footer } from './LoginPage.styles';
 import { useUser } from '../../UserContext';
+import { useTheme, ThemeProvider } from '@mui/material/styles';
 import { Alert, FilledInput, InputAdornment, InputLabel, IconButton } from '@mui/material';
 import { CheckCircleOutline, Visibility, VisibilityOff } from '@mui/icons-material';
 const LoginPage = ({ onLogin }) => {
+
+  const theme = useTheme();
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -55,6 +58,7 @@ const LoginPage = ({ onLogin }) => {
   };
 
   return (
+    <ThemeProvider theme={useTheme()}>
     <Container>
       <Header> ChatHub - Login</Header>
       {error && <Alert iconMapping={{ success: <CheckCircleOutline fontSize="inherit"/>}} variant="filled" severity="error">{error}</Alert>}
@@ -87,8 +91,9 @@ const LoginPage = ({ onLogin }) => {
 
         <Button type="submit">Login</Button>
       </Form>
-      <Footer>© 2024 ChatHub - Bruno Mendonça Gusmão BrunoDev2003</Footer>
+      <Footer theme={theme}>© 2024 ChatHub - Bruno Mendonça Gusmão BrunoDev2003</Footer>
     </Container>
+    </ThemeProvider>
   );
   
 };
