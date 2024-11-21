@@ -27,15 +27,20 @@ const MessageInput = ({ onSendMessage }) => {
                 sx={{
                 "& > :not(style)": { m: 1 },
                 position: "relative",
+                display: 'flex',
+                alignItems: 'center',
+                width: "100%",
                 bottom: 0,
                 width: "100%",
                 background: theme.palette.mode === 'light' ? theme.palette.primary.dark : theme.palette.secondary.contrastText,
                 borderTop: "1px solid #ccc",
-                padding: "10px",
+                padding: "5px",
                 boxSizing: "border-box",
+                borderRadius: 3,
                 }}
             >
         <TextField
+        sx={{ flexGrow: 1, marginRight: 2, width: "100%" }}
             id="Icon-textfield"
             label="Enviar-Mensagem"
             type="text"

@@ -4,6 +4,8 @@ import PropTypes from "prop-types";
 import { theme } from "../Header/Header.styles";
 import { useTheme } from '@mui/material/styles';
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
+import Typography from '@mui/material/Typography';
+
 
 
 const PermanentDrawer = ({
@@ -33,6 +35,10 @@ const PermanentDrawer = ({
         },
       }}
     >
+      <Typography variant="h5" fontStyle={"italic"}>
+        Chats
+      </Typography>
+      
       <List>
         {chatUsers && chatUsers.length > 0 ? (
           chatUsers.map((user) => {
