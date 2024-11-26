@@ -10,7 +10,7 @@ const ChatBot = () => {
     const newMessage = {
       from: "User",
       text: message,
-      date: new Date().toISOString(),
+      date: new Date().toLocaleTimeString(),
     };
     setMessages((prev) => [...prev, newMessage]);
 
@@ -18,7 +18,7 @@ const ChatBot = () => {
       const response = await axiosInstance.post("/chat/bot", { message });
       const botMessage = {
         from: "Bot",
-        text: response.data.reply,
+        text: response.data,
         date: new Date().getTime(),
       };
       setMessages((prev) => [...prev, botMessage]);
