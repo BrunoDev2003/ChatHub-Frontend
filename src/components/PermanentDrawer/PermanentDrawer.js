@@ -3,7 +3,10 @@ import { Drawer, List, ListItem, ListItemText, Button } from "@mui/material";
 import PropTypes from "prop-types";
 import { theme } from "../Header/Header.styles";
 import { useTheme } from '@mui/material/styles';
-import GroupAddIcon from '@mui/icons-material/GroupAdd';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import  { DatePicker }  from '@mui/x-date-pickers/DatePicker';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import Typography from '@mui/material/Typography';
 
 
@@ -99,7 +102,9 @@ const PermanentDrawer = ({
           </ListItem>
         )}
       </List>
-      <GroupAddIcon
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <DatePicker label="Basic example" />
+      <CalendarMonthIcon
         cursor="pointer"
         fontSize="large"
         sx={{
@@ -109,9 +114,10 @@ const PermanentDrawer = ({
           bottom: 10,
           left: "50%",
         }}
-        onClick={() => console.log("Create group chat...")}
+        onClick={() => console.log("Create Calendar...")}
       >
-      </GroupAddIcon>
+      </CalendarMonthIcon>
+      </LocalizationProvider>
     </Drawer>
   );
 };
