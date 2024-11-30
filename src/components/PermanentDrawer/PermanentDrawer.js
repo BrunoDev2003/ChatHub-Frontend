@@ -1,15 +1,12 @@
 import React from "react";
-import { Drawer, List, ListItem, ListItemText, Button } from "@mui/material";
+import { Drawer, List, ListItem, ListItemText } from "@mui/material";
 import PropTypes from "prop-types";
-import { theme } from "../Header/Header.styles";
-import { useTheme } from '@mui/material/styles';
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import  { DatePicker }  from '@mui/x-date-pickers/DatePicker';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import Typography from '@mui/material/Typography';
-
-
+import { useTheme } from "@mui/material/styles";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import Typography from "@mui/material/Typography";
+import "dayjs/locale/pt-br";
 
 const PermanentDrawer = ({
   chatUsers,
@@ -30,7 +27,10 @@ const PermanentDrawer = ({
       }}
       PaperProps={{
         sx: {
-          backgroundColor: theme.palette.primary.mode === 'light' ? theme.palette.primary.main : theme.palette.primary.main,
+          backgroundColor:
+            theme.palette.primary.mode === "light"
+              ? theme.palette.primary.main
+              : theme.palette.primary.main,
         },
         style: {
           width: 240,
@@ -41,7 +41,7 @@ const PermanentDrawer = ({
       <Typography variant="h5" fontStyle={"italic"}>
         Chats
       </Typography>
-      
+
       <List>
         {chatUsers && chatUsers.length > 0 ? (
           chatUsers.map((user) => {
@@ -85,7 +85,10 @@ const PermanentDrawer = ({
                 sx={{
                   "&:hover": {
                     cursor: "pointer",
-                    backgroundColor: theme.palette.primary.mode === 'light' ? theme.palette.primary.light : theme.palette.action.hover,
+                    backgroundColor:
+                      theme.palette.primary.mode === "light"
+                        ? theme.palette.primary.light
+                        : theme.palette.action.hover,
                   },
                 }}
               >
@@ -102,21 +105,12 @@ const PermanentDrawer = ({
           </ListItem>
         )}
       </List>
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <DatePicker label="Basic example" />
-      <CalendarMonthIcon
-        cursor="pointer"
-        fontSize="large"
-        sx={{
-          color: theme.palette.mode === 'light' ? theme.palette.primary.contrastText : theme.palette.text.primary,
-          backgroundColor: theme.palette.mode === 'light' ? theme.palette.primary.dark : theme.palette.background.paper,
-          position: "absolute",
-          bottom: 10,
-          left: "50%",
-        }}
-        onClick={() => console.log("Create Calendar...")}
-      >
-      </CalendarMonthIcon>
+      <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="pt/br">
+        <DateTimePicker
+          ampm={true}
+          label="Marcar Reunião"
+          format="DD/MM/YYYY, HH:mm:ss"
+        />
       </LocalizationProvider>
     </Drawer>
   );
