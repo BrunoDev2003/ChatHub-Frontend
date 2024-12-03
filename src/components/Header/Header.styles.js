@@ -1,6 +1,4 @@
-import styled from "styled-components";
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { CssBaseline } from "@mui/material";
+import { createTheme } from '@mui/material/styles';
 
 export const theme = createTheme({
     palette: {

@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../../axiosInstance';
-import axios from 'axios';
 import { Container, Header, Form, Input, Button, Footer } from './LoginPage.styles';
 import { useUser } from '../../UserContext';
 import { useTheme, ThemeProvider } from '@mui/material/styles';

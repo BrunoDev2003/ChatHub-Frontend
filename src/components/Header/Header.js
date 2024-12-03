@@ -1,18 +1,14 @@
-import React, {useRef} from 'react'
+import React from 'react'
 import Typography from '@mui/material/Typography';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Link from '@mui/material/Link';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
-import { theme } from './Header.styles';
 import { useUser } from '../../UserContext';
 import { Logout } from '@mui/icons-material';
 import axiosInstance from '../../axiosInstance';
-import  axios  from 'axios';
-import { Palette } from '@mui/icons-material';
 import { useTheme } from '@mui/material/styles';
-import MessageList from '../MessageList/MessageList';
 import { Avatar } from '@mui/material';
 import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
 import CircleRoundedIcon from '@mui/icons-material/CircleRounded';
@@ -60,18 +56,15 @@ const Header = ({isUserOnline, messageListRef}) => {
                 <Button variant="outlined" color="error" startIcon={<Logout />} onClick={handleLogout} sx={{marginLeft: 5, alignContent:'space-evenly'}}>
                     Logout
                 </Button>
-                <Link href="mailto:brunogusmao43@gmail.com" color="secondary" sx={{marginRight: 20, paddingLeft:2}}>
+                <Link href="mailto:brunogusmao43@gmail.com" target="_blank" color="secondary" sx={{marginRight: 20, paddingLeft:2}}>
                     Contato
                 </Link>
-                <Link href="https://github.com/BrunoDev2003" color="secondary" sx={{marginRight: 20}}>
+                <Link href="https://github.com/BrunoDev2003" target="_blank" color="secondary" sx={{marginRight: 20}}>
                     Github
                 </Link>
-                <Link href="https://brunodev-portfolio.herokuapp.com" color="secondary" sx={{marginRight: 20}}>
+                <Link href="https://brunodev-portfolio.herokuapp.com" target="_blank" color="secondary" sx={{marginRight: 20}}>
                     Portfolio 
                 </Link>
-                <Button color="success" variant="outlined" size="small" onClick={() => navigate('/login')} sx={{marginLeft: 5, alignContent:'space-evenly'}}>
-                    Histórico
-                </Button>
                 <ArrowCircleDownIcon color="info" variant="outlined" size="medium" cursor="pointer" onClick={handleScrollToBottom} sx={{marginLeft: 5, alignContent:'space-evenly'}}>
                 </ArrowCircleDownIcon>
                 </Typography>

@@ -1,8 +1,8 @@
-import React, { useContext, useState } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import LoginPage from './components/LoginPage/LoginPage';
 import ChatApp from './components/ChatApp/ChatApp';
-import { UserProvider, useUser, UserContext } from './UserContext';
+import { useUser } from './UserContext';
 
 const App = () => {
     const [isAuthenticated, setIsAuthenticated] = React.useState(false);

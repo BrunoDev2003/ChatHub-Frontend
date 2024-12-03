@@ -7,7 +7,6 @@ import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import Typography from "@mui/material/Typography";
 import "dayjs/locale/pt-br";
-
 const PermanentDrawer = ({
   chatUsers,
   onRoomChange,
