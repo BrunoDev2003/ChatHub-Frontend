@@ -1,24 +1,17 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Container, MainContent, ContentArea } from "./ChatApp.styles";
-import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../axiosInstance";
-import axios from "axios";
 import Header from "../Header/Header";
 import { useUser } from "../../UserContext";
 import MessageInput from "../MessageInput/MessageInput";
 import MessageList from "../MessageList/MessageList";
 import PermanentDrawer from "../PermanentDrawer/PermanentDrawer";
-import ChatRoomList from "../ChatRoomList/ChatRoomList";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { theme, darkTheme } from "../Header/Header.styles";
 import { Button } from "@mui/material";
 import Typography from "@mui/material/Typography";
-import Avatar from "@mui/material/Avatar";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-
-//current GET error on /chat/emit: GRAVE: Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: com.google.gson.JsonSyntaxException: java.lang.NumberFormatException: Expected an int but was 1729214070107 at line 1 column 70 path $.date] with root cause
-//java.lang.NumberFormatException: Expected an int but was 1729214070107 at line 1 column 70 path $.date
 
 const ChatApp = () => {
   /**
