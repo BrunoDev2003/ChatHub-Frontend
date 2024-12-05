@@ -109,7 +109,7 @@ const PermanentDrawer = ({
       <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="pt/br">
         <DateTimePicker
           ampm={true}
-          label="Agenda de Compromissos"
+          label="Agenda de Eventos"
           format="DD/MM/YYYY, HH:mm:ss"
         />
       </LocalizationProvider>

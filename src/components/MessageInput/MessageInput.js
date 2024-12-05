@@ -42,15 +42,14 @@ const MessageInput = ({ onSendMessage }) => {
 
   const keyboardRef = React.useRef();
   return (
-    <div className="message-input">
+    <div className="message-input" style={{ display: "flex", flexDirection: "column", width: "100%", flexFlow: "row wrap-reverse"}}>
       <Box
         sx={{
           "& > :not(style)": { m: 1 },
-          position: "relative",
-          display: "flex",
-          alignItems: "center",
-          bottom: 0,
-          width: "100%",
+          position: "fixed",
+          bottom: keyboardOpen ? 320 : 50,
+          left: 240,
+          width: "calc(100% - 240px)",
           background:
             theme.palette.mode === "light"
               ? theme.palette.primary.dark
@@ -59,10 +58,11 @@ const MessageInput = ({ onSendMessage }) => {
           padding: "5px",
           boxSizing: "border-box",
           borderRadius: 3,
+          zIndex: 1000,
         }}
       >
         <TextField
-          sx={{ flexGrow: 1, marginRight: 2, width: "100%" }}
+          sx={{ flexGrow: 1, marginRight: 2, width: "73%" }}
           id="Icon-textfield"
           label="Enviar-Mensagem"
           type="text"
@@ -93,7 +93,7 @@ const MessageInput = ({ onSendMessage }) => {
         />
       </Box>
       {keyboardOpen && (
-        <div style={{ flex: "0 0 auto", width: "100%" }}>
+        <div style={{ position:"fixed", bottom: 50, width: "100%", background:"blue", left: 240, width: "calc(100% - 240px)",}}>
           <Keyboard
             keyboardRef={(r) => (keyboardRef.current = r)}
             layoutName={layoutName}

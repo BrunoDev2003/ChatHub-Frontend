@@ -13,6 +13,8 @@ import { Button } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import ChatRoomList from "../ChatRoomList/ChatRoomList";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { BorderTop } from "@mui/icons-material";
+import  Box  from "@mui/material/Box";
 
 const ChatApp = ({ activeRoom, setActiveRoom}) => {
   /**
@@ -249,7 +251,6 @@ const ChatApp = ({ activeRoom, setActiveRoom}) => {
     eventSource.onmessage = (event) => {
       try {
         const parsedMessage = JSON.parse(event.data);
-        //const finalDataJSON = JSON.parse(parsedMessage.data);
         let finalDataJSON;
         const newMessage = {
           ...parsedMessage,
@@ -307,12 +308,29 @@ const ChatApp = ({ activeRoom, setActiveRoom}) => {
             <MessageInput onSendMessage={handleSendMessage} />
           </ContentArea>
           </MainContent>
+      <Box
+        sx={{
+          position: "fixed",
+          bottom: 0,
+          left: 240,
+          width: "calc(100% - 240px)",
+          padding: '10px',
+          color: theme.palette.mode === "light" ? theme.palette.info : theme.palette.primary.dark,
+          background: theme.palette.mode === "light" ? theme.palette.primary.dark : theme.palette.primary.dark,
+          borderTop: "1px solid #ccc",
+          boxSizing: "border-box",
+        }}
+      >
       <Button 
-      variant="contained" 
-      color="info"
+      sx={{
+        color: theme.palette.mode ==='light' ? theme.palette.info : theme.palette.text.primary,
+        background: theme.palette.mode ==='light' ? theme.palette.primary.info : theme.palette.secondary.dark,
+      }}
+      variant="contained"
       onClick={() => setIsDarkMode(!isDarkMode)}>
         Trocar para Modo Escuro.
       </Button>
+      </Box>    
       </Container>
     </ThemeProvider>
   );
