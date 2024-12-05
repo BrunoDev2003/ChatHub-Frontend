@@ -9,7 +9,6 @@ import axiosInstance from '../../axiosInstance';
 import { IconButton } from "@mui/material";
 import  DeleteForeverRoundedIcon  from "@mui/icons-material/DeleteForever";
 
-
 /**
  * @typedef {Object} Message
  * @property {string} from

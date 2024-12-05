@@ -6,6 +6,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import Typography from "@mui/material/Typography";
+import { useUser } from "../../UserContext";
 import "dayjs/locale/pt-br";
 const PermanentDrawer = ({
   chatUsers,
@@ -13,6 +14,7 @@ const PermanentDrawer = ({
   onFilterMessage,
   messages,
 }) => {
+  const users = [{ id: 1, name: "Joe" }, { id: 2, name: "Bruno" }, { id: 3, name: "Mariana" }, { id: 4, name: "Alex"}];
   const theme = useTheme();
 
   return (
@@ -107,7 +109,7 @@ const PermanentDrawer = ({
       <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="pt/br">
         <DateTimePicker
           ampm={true}
-          label="Marcar Reunião"
+          label="Agenda de Compromissos"
           format="DD/MM/YYYY, HH:mm:ss"
         />
       </LocalizationProvider>

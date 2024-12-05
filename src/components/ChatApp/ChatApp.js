@@ -11,9 +11,10 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { theme, darkTheme } from "../Header/Header.styles";
 import { Button } from "@mui/material";
 import Typography from "@mui/material/Typography";
+import ChatRoomList from "../ChatRoomList/ChatRoomList";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
-const ChatApp = () => {
+const ChatApp = ({ activeRoom, setActiveRoom}) => {
   /**
    * @typedef {Object} Message
    * @property {string} from
@@ -56,18 +57,23 @@ const ChatApp = () => {
     );
   };
   const handleRoomChange = async (roomId) => {
-    setCurrentRoomId(roomId);
+
+    if (!user || !user.id) { console.error("User not initialized or user ID is missing"); return; }
+    const currentUserId = user.id;
+    const roomKey = currentUserId < roomId ? `${currentUserId}:${roomId}` : `${roomId}:${currentUserId}`;
+    setCurrentRoomId(roomKey);
+    setActiveRoom(roomKey);
     setMessages([]); // limpar o state das messages;
-    const user = chatUsers.find((user) => user.id === roomId);
-    setSelectedUser(user); // setar o usuário selecionado como o usuário do chat atual;
+    const selectedChatUser = chatUsers.find((user) => user.id === roomId);
+    setSelectedUser(selectedChatUser); // setar o usuário selecionado como o usuário do chat atual;
 
     try {
       const response = await axiosInstance.get(
-        `http://localhost:8080/api/rooms/messages/${roomId}`
+        `http://localhost:8080/api/rooms/messages/${roomKey}`
       );
       setMessages(response.data);
     } catch {
-      console.error("Erro ao buscar mensagens", roomId, error);
+      console.error("Erro ao buscar mensagens", roomKey, error);
     }
   };
 
@@ -281,6 +287,7 @@ const ChatApp = () => {
             onFilterMessage={userMessagesFilter}
             messages={messages}
           />
+          <ChatRoomList rooms={chatUsers} onRoomChange={handleRoomChange} />
           <ContentArea sx={{color: theme.palette.mode ==='light' ? theme.palette.primary.dark_mode : theme.palette.text.primary}}>
             <Typography sx={{color: theme.palette.mode ==='light' ? theme.palette.primary.dark_mode : theme.palette.text.primary}}>
                 <AccountCircleIcon sx={{fontSize:'45px'}}>
@@ -295,6 +302,7 @@ const ChatApp = () => {
               otherUserId={currentRoomId} 
               userMessagesRoomFilter={userMessagesRoomFilter}
               messageListRef={messageListRef}
+              activeRoom={activeRoom} user={user}
             />
             <MessageInput onSendMessage={handleSendMessage} />
           </ContentArea>
