@@ -18,14 +18,35 @@ This repository includes the build and all of the code/tools used to developed t
 - [Node.js](https://nodejs.org/en/download/) (v15.14.0 or superior versions is required)
 - [Chathub Backend](https://github.com/BrunoDev2003/ChatHub) (check out the readME file of the backend repo to properly install it and Redis)
 
-- # Verification
-- - Use [ node -v ] in your CMD to verify what version of node is installed in your system.
+ # Verification
+  - Use [ node -v ] in your CMD to verify what version of node is installed in your system.
   - Use [ npm -v ] in your CMD to verify what version of the node package manager is installed in your system.
 
 ## IDEs and tools
 - [VSCode](https://code.visualstudio.com/) (install VSCode)
 - [npm install] (Open the project on VSCode and run the this command to install all the frontend dependencies.)
 
-- 
+
+## Installation
+Renember to have node and npm in your system to run the application.
+Open the project on VSCode.
+
+1. Navigate to the project root and install all dependencies from the project build
+   ```bash
+   npm install
+2. And then, in the project root, run the following commands
+   ```bash
+   npm run start
+   npm run build
+   serve -s build
+
+Then go to (http://localhost:3000/login)
+Input login data on the login page.
+
+## Login Data
+```bash
+users: Bruno, Joe, Mariana, Alex
+password: senha123
+
 
 
