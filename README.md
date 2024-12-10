@@ -1,0 +1,31 @@
+# Chathub - Chat Application
+
+⭐️ If you liked this project, give me a follow and a star on Github!
+
+## About
+
+Chathub is a robust chat application designed to improve team work of companies who have remote workers and 
+optimize their productivity.
+This repository includes the build and all of the code/tools used to developed the frontend side of this project.
+![chathub_front_FINAL_entrega](https://github.com/user-attachments/assets/f516e9c1-e507-4854-9c44-333a9ba3c367)
+
+## Activity
+
+![Alt](https://repobeats.axiom.co/api/embed/fa6018b5e6e4d34ed883ae8e82182957da285d9c.svg "Repobeats analytics image")
+
+## Pre-requisites
+- Before proceeding, ensure that your system meets the following requirements:
+- [Node.js](https://nodejs.org/en/download/) (v15.14.0 or superior versions is required)
+- [Chathub Backend](https://github.com/BrunoDev2003/ChatHub) (check out the readME file of the backend repo to properly install it and Redis)
+
+- # Verification
+- - Use [ node -v ] in your CMD to verify what version of node is installed in your system.
+  - Use [ npm -v ] in your CMD to verify what version of the node package manager is installed in your system.
+
+## IDEs and tools
+- [VSCode](https://code.visualstudio.com/) (install VSCode)
+- [npm install] (Open the project on VSCode and run the this command to install all the frontend dependencies.)
+
+- 
+
+
