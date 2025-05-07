@@ -15,6 +15,7 @@ import ChatRoomList from "../ChatRoomList/ChatRoomList";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { BorderTop } from "@mui/icons-material";
 import  Box  from "@mui/material/Box";
+import { backendUrl } from "../../App";
 
 const ChatApp = ({ activeRoom, setActiveRoom}) => {
   /**
@@ -71,7 +72,7 @@ const ChatApp = ({ activeRoom, setActiveRoom}) => {
 
     try {
       const response = await axiosInstance.get(
-        `http://localhost:8080/api/rooms/messages/${roomKey}`
+        `http://${backendUrl}/api/rooms/messages/${roomKey}`
       );
       setMessages(response.data);
     } catch {
@@ -102,7 +103,7 @@ const ChatApp = ({ activeRoom, setActiveRoom}) => {
       }),
     };
     try {
-      await axiosInstance.post("http://localhost:8080/chat/emit", newMessage, {
+      await axiosInstance.post(`${backendUrl}/chat/emit`, newMessage, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -131,7 +132,7 @@ const ChatApp = ({ activeRoom, setActiveRoom}) => {
       };
       try {
         await axiosInstance.post(
-          "http://localhost:8080/chat/emit",
+          `http://${backendUrl}/chat/emit`,
           connectMessage,
           {
             headers: {
@@ -160,7 +161,7 @@ const ChatApp = ({ activeRoom, setActiveRoom}) => {
       };
       try {
         await axiosInstance.post(
-          "http://localhost:8080/chat/emit",
+          `http://${backendUrl}/chat/emit`,
           disconnectMessage,
           {
             headers: {
@@ -186,7 +187,7 @@ const ChatApp = ({ activeRoom, setActiveRoom}) => {
     const fetchChatUsers = async () => {
       try {
         const response = await axiosInstance.get(
-          "http://localhost:8080/users/all"
+          `http://${backendUrl}/users/all`
         );
         setChatUsers(response.data);
       } catch (error) {
@@ -199,7 +200,7 @@ const ChatApp = ({ activeRoom, setActiveRoom}) => {
     const pollStatusUpdates = async () => {
       try {
         const response = await axiosInstance.get(
-          "http://localhost:8080/users/status-updates"
+          `http://${backendUrl}/users/status-updates`
         );
         if (response.status === 204) {
           console.log("No update status available");
@@ -231,7 +232,7 @@ const ChatApp = ({ activeRoom, setActiveRoom}) => {
     const fetchUserMessages = async () => {
       try {
         const response = await axiosInstance.get(
-          "http://localhost:8080/chat/emit"
+          `http://${backendUrl}/chat/emit`
         );
         setMessages((prevMessages) => prevMessages.concat(response.data));
       } catch (error) {
@@ -245,7 +246,7 @@ const ChatApp = ({ activeRoom, setActiveRoom}) => {
   useEffect(() => {
     if (!user.id) return;
     const eventSource = new EventSource(
-      `http://localhost:8080/chat/stream?userId=${user.id}`
+      `http://${backendUrl}/chat/stream?userId=${user.id}`
     );
 
     eventSource.onmessage = (event) => {

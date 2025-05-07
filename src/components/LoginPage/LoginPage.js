@@ -6,6 +6,7 @@ import { useUser } from '../../UserContext';
 import { useTheme, ThemeProvider } from '@mui/material/styles';
 import { Alert, FilledInput, InputAdornment, InputLabel, IconButton } from '@mui/material';
 import { CheckCircleOutline, Visibility, VisibilityOff } from '@mui/icons-material';
+import { backendUrl } from '../../App';
 const LoginPage = ({ onLogin }) => {
 
   const theme = useTheme();
@@ -21,7 +22,7 @@ const LoginPage = ({ onLogin }) => {
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   useEffect(() => {
-    axiosInstance.get('http://localhost:8080/api/health')
+    axiosInstance.get(`http://${backendUrl}/api/health`)
       .then(response => {
         console.log('backend está rodando...', response.data)
       })
@@ -32,7 +33,7 @@ const LoginPage = ({ onLogin }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axiosInstance.post('http://localhost:8080/api/login', { username, password })
+    axiosInstance.post(`http://${backendUrl}/api/login`, { username, password })
     .then(response => {
       const loggedUser = response.data;
       console.log('Usuário logado com sucesso!', loggedUser);

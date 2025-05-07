@@ -12,6 +12,7 @@ import { useTheme } from '@mui/material/styles';
 import { Avatar } from '@mui/material';
 import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
 import CircleRoundedIcon from '@mui/icons-material/CircleRounded';
+import { backendUrl } from '../../App';
 
 
 const Header = ({isUserOnline, messageListRef}) => {
@@ -27,7 +28,7 @@ const Header = ({isUserOnline, messageListRef}) => {
 
     const handleLogout = async () => {
         try {
-            await axiosInstance.post('http://localhost:8080/api/logout');
+            await axiosInstance.post(`http://${backendUrl}/api/logout`);
             navigate('/login');
         } catch (error) {
             console.error('Erro ao fazer logout', error);
