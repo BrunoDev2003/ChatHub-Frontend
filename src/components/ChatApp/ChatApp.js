@@ -72,7 +72,7 @@ const ChatApp = ({ activeRoom, setActiveRoom}) => {
 
     try {
       const response = await axiosInstance.get(
-        `http://${backendUrl}/api/rooms/messages/${roomKey}`
+        `https://${backendUrl}/api/rooms/messages/${roomKey}`
       );
       setMessages(response.data);
     } catch {
@@ -132,7 +132,7 @@ const ChatApp = ({ activeRoom, setActiveRoom}) => {
       };
       try {
         await axiosInstance.post(
-          `http://${backendUrl}/chat/emit`,
+          `https://${backendUrl}/chat/emit`,
           connectMessage,
           {
             headers: {
@@ -161,7 +161,7 @@ const ChatApp = ({ activeRoom, setActiveRoom}) => {
       };
       try {
         await axiosInstance.post(
-          `http://${backendUrl}/chat/emit`,
+          `https://${backendUrl}/chat/emit`,
           disconnectMessage,
           {
             headers: {
@@ -187,7 +187,7 @@ const ChatApp = ({ activeRoom, setActiveRoom}) => {
     const fetchChatUsers = async () => {
       try {
         const response = await axiosInstance.get(
-          `http://${backendUrl}/users/all`
+          `https://${backendUrl}/users/all`
         );
         setChatUsers(response.data);
       } catch (error) {
@@ -200,7 +200,7 @@ const ChatApp = ({ activeRoom, setActiveRoom}) => {
     const pollStatusUpdates = async () => {
       try {
         const response = await axiosInstance.get(
-          `http://${backendUrl}/users/status-updates`
+          `https://${backendUrl}/users/status-updates`
         );
         if (response.status === 204) {
           console.log("No update status available");
@@ -232,7 +232,7 @@ const ChatApp = ({ activeRoom, setActiveRoom}) => {
     const fetchUserMessages = async () => {
       try {
         const response = await axiosInstance.get(
-          `http://${backendUrl}/chat/emit`
+          `https://${backendUrl}/chat/emit`
         );
         setMessages((prevMessages) => prevMessages.concat(response.data));
       } catch (error) {
@@ -246,7 +246,7 @@ const ChatApp = ({ activeRoom, setActiveRoom}) => {
   useEffect(() => {
     if (!user.id) return;
     const eventSource = new EventSource(
-      `http://${backendUrl}/chat/stream?userId=${user.id}`
+      `https://${backendUrl}/chat/stream?userId=${user.id}`
     );
 
     eventSource.onmessage = (event) => {
