@@ -103,7 +103,7 @@ const ChatApp = ({ activeRoom, setActiveRoom}) => {
       }),
     };
     try {
-      await axiosInstance.post(`/chat/emit`, newMessage, {
+      await axiosInstance.post("/chat/emit", newMessage, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -132,7 +132,7 @@ const ChatApp = ({ activeRoom, setActiveRoom}) => {
       };
       try {
         await axiosInstance.post(
-          `/chat/emit`,
+          "/chat/emit",
           connectMessage,
           {
             headers: {
@@ -161,7 +161,7 @@ const ChatApp = ({ activeRoom, setActiveRoom}) => {
       };
       try {
         await axiosInstance.post(
-          `/chat/emit`,
+          "/chat/emit",
           disconnectMessage,
           {
             headers: {
@@ -187,7 +187,7 @@ const ChatApp = ({ activeRoom, setActiveRoom}) => {
     const fetchChatUsers = async () => {
       try {
         const response = await axiosInstance.get(
-          `/users/all`
+          "/users/all"
         );
         setChatUsers(response.data);
       } catch (error) {
@@ -200,7 +200,7 @@ const ChatApp = ({ activeRoom, setActiveRoom}) => {
     const pollStatusUpdates = async () => {
       try {
         const response = await axiosInstance.get(
-          `/users/status-updates`
+          "/users/status-updates"
         );
         if (response.status === 204) {
           console.log("No update status available");
@@ -232,7 +232,7 @@ const ChatApp = ({ activeRoom, setActiveRoom}) => {
     const fetchUserMessages = async () => {
       try {
         const response = await axiosInstance.get(
-          `/chat/emit`
+          "/chat/emit"
         );
         setMessages((prevMessages) => prevMessages.concat(response.data));
       } catch (error) {
@@ -246,7 +246,7 @@ const ChatApp = ({ activeRoom, setActiveRoom}) => {
   useEffect(() => {
     if (!user.id) return;
     const eventSource = new EventSource(
-      `${process.env.REACT_APP_BACKEND_URL}/chat/stream?userId=${user.id}`
+      `${process.env.REACT_APP_BACKEND_URL_API}/chat/stream?userId=${user.id}`
     );
 
     eventSource.onmessage = (event) => {
