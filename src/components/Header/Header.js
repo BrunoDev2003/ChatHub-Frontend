@@ -28,7 +28,7 @@ const Header = ({isUserOnline, messageListRef}) => {
 
     const handleLogout = async () => {
         try {
-            await axiosInstance.post(`/api/logout`);
+            await axiosInstance.post(`/logout`);
             navigate('/login');
         } catch (error) {
             console.error('Erro ao fazer logout', error);
