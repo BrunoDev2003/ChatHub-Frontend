@@ -22,7 +22,7 @@ const LoginPage = ({ onLogin }) => {
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   useEffect(() => {
-    axiosInstance.get(`https://${backendUrl}/api/health`)
+    axiosInstance.get(`/api/health`)
       .then(response => {
         console.log('backend está rodando...', response.data)
       })
@@ -33,7 +33,7 @@ const LoginPage = ({ onLogin }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axiosInstance.post(`https://${backendUrl}/api/login`, { username, password })
+    axiosInstance.post(`/api/login`, { username, password })
     .then(response => {
       const loggedUser = response.data;
       console.log('Usuário logado com sucesso!', loggedUser);
