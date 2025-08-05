@@ -1,7 +1,8 @@
 # Chathub - Chat Application
 
 ⭐️ If you liked this project, give me a follow and a star on Github!
-
+Link to use the app: https://chat-hub-frontend-hx78.vercel.app/login
+Scroll down to the end of this read.me for the login data!
 ## About
 
 Chathub is a robust chat application designed to improve team work of companies who have remote workers and 
@@ -9,6 +10,7 @@ optimize their productivity.
 This repository includes the build and all of the code/tools used to developed the frontend side of this project.
 ![chathub_front_FINAL_entrega](https://github.com/user-attachments/assets/f516e9c1-e507-4854-9c44-333a9ba3c367)
 
+If you wish to install the system to your desktop instead of using it on the web, follow the steps below.
 ## Activity
 
 ![Alt](https://repobeats.axiom.co/api/embed/fa6018b5e6e4d34ed883ae8e82182957da285d9c.svg "Repobeats analytics image")
@@ -47,6 +49,7 @@ Input login data on the login page.
 ```bash
 users: Bruno, Joe, Mariana, Alex
 password: senha123
+
 
 
 
